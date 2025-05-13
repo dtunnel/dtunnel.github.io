@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Of The Week Interactive Showcase</title>
+    <style>
+        :root {
+            --bg-color: #f0f2f5; --text-color: #333; --header-text-color: #2c3e50;
+            --header-shadow-color: #bdc3c7; --nav-bg-color: #34495e; --nav-button-bg-color: #3498db;
+            --nav-button-hover-bg-color: #2980b9; --nav-button-text-color: white;
+            --content-bg-color: #ffffff; --content-shadow-color: rgba(0,0,0,0.1);
+            --section-title-color: #2c3e50; --section-title-border-color: #3498db;
+            --about-text-color: #555; --game-list-item-bg-color: #ecf0f1;
+            --game-list-item-text-color: #2c3e50; --game-list-item-hover-bg-color: #bdc3c7;
+            --game-list-item-border-color: #dde1e2; --game-list-price-color: #27ae60;
+            --game-card-title-color: #3498db; --game-header-image-border-color: #ddd;
+            --link-color: #2980b9; --description-border-color: #3498db;
+            --description-text-color: #555; --price-color: #27ae60;
+            --sales-info-bg-color: #ecf0f1; --sales-info-text-color: #7f8c8d;
+            --back-button-bg-color: #e74c3c; --back-button-hover-bg-color: #c0392b;
+            --footer-text-color: #7f8c8d; --dark-mode-toggle-bg: #7f8c8d;
+            --dark-mode-toggle-text: white;
+        }
+        body.dark-mode {
+            --bg-color: #1a1a1a; --text-color: #e0e0e0; --header-text-color: #ecf0f1;
+            --header-shadow-color: #000; --nav-bg-color: #2c3e50;
+            --content-bg-color: #2b2b2b; --content-shadow-color: rgba(255,255,255,0.05);
+            --section-title-color: #ecf0f1; --about-text-color: #bdc3c7;
+            --game-list-item-bg-color: #3e3e3e; --game-list-item-text-color: #ecf0f1;
+            --game-list-item-hover-bg-color: #555; --game-list-item-border-color: #4a4a4a;
+            --game-list-price-color: #2ecc71; --game-header-image-border-color: #555;
+            --link-color: #5dade2; --description-text-color: #bdc3c7;
+            --price-color: #2ecc71; --sales-info-bg-color: #3e3e3e;
+            --sales-info-text-color: #bdc3c7; --back-button-bg-color: #c0392b;
+            --back-button-hover-bg-color: #e74c3c; --footer-text-color: #95a5a6;
+            --dark-mode-toggle-bg: #4e5d6c; --dark-mode-toggle-text: #ecf0f1;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; transition: background-color 0.3s ease, color 0.3s ease; }
+        .container { max-width: 950px; margin: 20px auto; padding: 0 20px; }
+        .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .header-bar h1 { margin: 0; color: var(--header-text-color); font-size: 2.5em; text-shadow: 1px 1px 2px var(--header-shadow-color); text-align: left; }
+        #dark-mode-toggle { background-color: var(--dark-mode-toggle-bg); color: var(--dark-mode-toggle-text); border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.9em; transition: background-color 0.3s ease; }
+        #dark-mode-toggle:hover { opacity: 0.9; }
+        nav { background-color: var(--nav-bg-color); padding: 10px 0; margin-bottom: 25px; border-radius: 5px; text-align: center; }
+        nav button { background-color: var(--nav-button-bg-color); color: var(--nav-button-text-color); border: none; padding: 10px 20px; margin: 0 10px; border-radius: 5px; cursor: pointer; font-size: 1em; transition: background-color 0.3s ease; }
+        nav button:hover, nav button.active { background-color: var(--nav-button-hover-bg-color); }
+        .content-section { display: none; padding: 20px; background-color: var(--content-bg-color); border-radius: 8px; box-shadow: 0 2px 5px var(--content-shadow-color); margin-bottom: 20px; animation: fadeInContent 0.5s ease-out; }
+        .content-section.active { display: block; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        #about-section h2, #games-list-section h2, #game-detail-section h2 { color: var(--section-title-color); border-bottom: 2px solid var(--section-title-border-color); padding-bottom: 10px; margin-top: 0; }
+        #about-section p { font-size: 1.1em; color: var(--about-text-color); }
+        
+        /* Updated Game List Styles */
+        .game-list-container {
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            gap: 0; /* Remove gap, use borders for separation */
+        }
+        .game-list-item {
+            background-color: var(--game-list-item-bg-color);
+            color: var(--game-list-item-text-color);
+            padding: 12px 18px;
+            border-bottom: 1px solid var(--game-list-item-border-color);
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            display: flex; /* For aligning name and price */
+            justify-content: space-between; /* Push name and price apart */
+            align-items: center; /* Vertically align */
+            font-weight: 500;
+        }
+        .game-list-item:first-child {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .game-list-item:last-child {
+            border-bottom: none; /* No border for the last item */
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        .game-list-item:hover {
+            background-color: var(--game-list-item-hover-bg-color);
+            /* color: var(--nav-button-text-color); Optional: change text color on hover */
+        }
+        .game-list-item .game-name {
+            flex-grow: 1; /* Allow game name to take available space */
+        }
+        .game-list-item .game-msrp {
+            margin-left: 20px; /* Space between name and price */
+            font-weight: bold;
+            color: var(--game-list-price-color);
+            white-space: nowrap; /* Prevent price from wrapping */
+        }
+
+        .game-card { background-color: var(--content-bg-color); border-radius: 8px; padding: 0; }
+        .game-card .steam-header-image { width: 100%; max-width: 460px; height: auto; border-radius: 6px; margin-bottom: 15px; border: 1px solid var(--game-header-image-border-color); display: block; margin-left: auto; margin-right: auto; }
+        .game-card h3 { margin-top: 0; color: var(--game-card-title-color); font-size: 1.8em; text-align: center; margin-bottom: 15px; }
+        .game-card .game-link, .game-card .reviews-link { color: var(--link-color); text-decoration: none; font-weight: bold; }
+        .game-card .game-link:hover, .game-card .reviews-link:hover { text-decoration: underline; }
+        .game-card p { margin-bottom: 10px; }
+        .game-card .description { margin-top: 15px; margin-bottom: 15px; padding-left: 15px; border-left: 3px solid var(--description-border-color); font-style: italic; color: var(--description-text-color); }
+        .game-card .price { font-weight: bold; color: var(--price-color); font-size: 1.2em; } /* This is for the price in the detail card */
+        .game-card .sales-info { font-size: 0.9em; color: var(--sales-info-text-color); background-color: var(--sales-info-bg-color); padding: 8px; border-radius: 4px; margin-top: 10px; margin-bottom: 10px; }
+        .back-to-list-button { display: inline-block; background-color: var(--back-button-bg-color); color: var(--nav-button-text-color); padding: 8px 15px; border-radius: 4px; text-decoration: none; margin-top: 15px; margin-bottom: 10px; transition: background-color 0.3s ease; cursor: pointer; border: none; }
+        .back-to-list-button:hover { background-color: var(--back-button-hover-bg-color); }
+        .footer-text { text-align: center; margin-top: 40px; padding: 20px; font-size: 0.9em; color: var(--footer-text-color); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header-bar">
+            <h1>Game Of The Week</h1>
+            <button id="dark-mode-toggle">🌙 Dark Mode</button>
+        </header>
+        <nav>
+            <button id="nav-about" class="active">About GOTW</button>
+            <button id="nav-games">Browse Games</button>
+        </nav>
+        <main>
+            <section id="about-section" class="content-section active">
+                <h2>Welcome to Game Of The Week!</h2>
+                <p>This is your curated spot for discovering fantastic games, hand-picked each week. Our selections cover a wide range of genres and styles, from indie gems to critically acclaimed titles.</p>
+                <p>Each entry includes its Steam header image, a custom description highlighting what makes the game special, links to its Steam page and reviews, current pricing, and information on historical sales so you know when to grab the best deals.</p>
+                <p>Click on "Browse Games" to explore the archive!</p>
+            </section>
+            <section id="games-list-section" class="content-section">
+                <h2>All Games</h2>
+                <div class="game-list-container" id="game-list-container"></div>
+            </section>
+            <section id="game-detail-section" class="content-section">
+                <button class="back-to-list-button" id="back-to-list">&laquo; Back to Games List</button>
+                <div id="game-detail-content"></div>
+            </section>
+        </main>
+        <footer>
+            <p class="footer-text">Happy Gaming! Your Friendly Neighborhood Game Recommender.</p>
+        </footer>
+    </div>
+    <script>
+        const gamesData = [{"name": "One Shot", "linkName": "One Shot", "steamLink": "https://store.steampowered.com/app/420530/OneShot/", "description": "Guide a child through a mysterious world on a missoin to restore it's long dead Sun.<br>One shot has some very unique mechanics that give serious weight to every decision you make in the game.<br>Seriously, don't screw this up, you only have one shot.", "reviewsLink": "https://store.steampowered.com/app/420530/OneShot/#app_reviews_hash", "price": "$9.99", "sales": "Note: This game somewhat frequently goes on sale for $4.99"}, {"name": "Dave The Diver", "linkName": "Dave The Diver", "steamLink": "https://store.steampowered.com/app/1868140/DAVE_THE_DIVER/", "description": "Dave The Diver is a casual, single player adventure RPG.<br>Explore the deep sea and go fishing durring the day while managing a sushi restaurant at night.<br>Join Dave and his quirky friends as they seek to uncover the secrets of the mysterious Blue Hole.", "reviewsLink": "https://store.steampowered.com/app/1868140/DAVE_THE_DIVER/#app_reviews_hash", "price": "$19.99", "sales": "Note: This game is still relatively new, don't expact a sale very often"}, {"name": "Inscryption", "linkName": "Inscryption", "steamLink": "https://store.steampowered.com/app/1092790/Inscryption/", "description": "Inscryption is a dark deck builder roguelike that will have to searching for a way out.<br>Make your way through this psychological horror of a card game and discover the secrets inscrybed upon the cards themselves.", "reviewsLink": "https://store.steampowered.com/app/1092790/Inscryption/#app_reviews_hash", "price": "$19.99", "sales": "Note: This game frequently goes on sale for $9.99"}, {"name": "The Binding of Isaac: Rebirth", "linkName": "The Binding of Isaac: Rebirth", "steamLink": "https://store.steampowered.com/app/250900/The_Binding_of_Isaac_Rebirth/", "description": "This is a randomly generated dungeon crawler with heavy Rogue-like elements.<br>Follow Issac on his journey to avenge himself by taking on 'Mom' and who knows what follows.<br>The Binding of Isaac is cirtically aclaimed and is very easy to pick-up/put-down when you're looking for something fun and interesting to dive into.", "reviewsLink": "https://store.steampowered.com/app/250900/The_Binding_of_Isaac_Rebirth/#app_reviews_hash", "price": "$14.99", "sales": "Note: You might catch this game on sale for $10.04 durring summer and winter sales"}, {"name": "Factorio", "linkName": "Factorio", "steamLink": "https://store.steampowered.com/app/427520/Factorio/", "description": "Are you a fan of keeping track of time?<br>Maybe an even bigger fan of sleep?<br>Well throw all of that out the window with Factorio!<br>This beast of a game is all about building and creating automated factories of increasing complexity until you either drive yourself crazy or wake up to find that it's been 3 weeks and you've been fired for 2.<br>Factorio is best described as easy to play, difficult to master.", "reviewsLink": "https://store.steampowered.com/app/427520/Factorio/#app_reviews_hash", "price": "$35.00", "sales": "Sales: Factorio developers have committed to keeping the game a consistent price to prevent that dissapointing feeling when you purchase a game only to see it 50% a month later. It has never, and will never go on sale (according to the devs). It is also incredibly difficult to find on alternative platforms such as CdKeys or G2A."}, {"name": "Dream Daddy", "linkName": "Dream Daddy", "steamLink": "https://store.steampowered.com/app/654880/Dream_Daddy_A_Dad_Dating_Simulator/", "description": "Have you ever wanted to play a dating sim where you play as a Dad?<br>Yeah me either, but I know there's at least one of you out there. You know who you are.<br>Are you ready? Hi ready, I'm Dad.", "reviewsLink": "https://store.steampowered.com/app/654880/Dream_Daddy_A_Dad_Dating_Simulator/#app_reviews_hash", "price": "$14.99", "sales": "Note: This game rarely goes on sale for $4.64"}, {"name": "Chef RPG", "linkName": "Chef RPG", "steamLink": "https://store.steampowered.com/app/1796790/Chef_RPG/#app_reviews_hash", "description": "This game has a beautiful and unique pixel art stylized world where you, a young chef, are given the task of reviving an once famous resturaunt in White Ash harbor.<br>Chef RPG follows a 'Stardew Valley Like' playstyle like many other cozy games.<br>Hunt, harvest, and shop for ingredients while befriending the locals.<br>Did I mention this game is beautiful?", "reviewsLink": "https://store.steampowered.com/app/1796790/Chef_RPG/#app_reviews_hash", "price": "$19.99", "sales": "This game is still new and has not yet gone on sale"}, {"name": "Baba Is You", "linkName": "Baba Is You", "steamLink": "https://store.steampowered.com/app/736260/Baba_Is_You/", "description": "Baba Is You is a clever puzzle game in which you make the rules.<br>By pushing a few blocks, you can entirely change how the game works in ways that may suprise you.<br>It's a great game if you're looking to pass the time or challenge yourself.", "reviewsLink": "https://store.steampowered.com/app/736260/Baba_Is_You/#app_reviews_hash", "price": "$14.99", "sales": "You might catch this game on sale for $10.49 durring certain fests and seasonal sales"}, {"name": "To The Moon", "linkName": "To The Moon", "steamLink": "https://store.steampowered.com/app/206440/To_the_Moon/", "description": "This hidden gem will actually make you cry.<br>Dive through a dying man's memories to help him fufill his last wish.<br>Seriously be prepared. You will cry.", "reviewsLink": "https://store.steampowered.com/app/206440/To_the_Moon/#app_reviews_hash", "price": "$9.99", "sales": "This game goes on sale very often for $1.99"}, {"name": "WebFishing", "linkName": "WEBFISHING", "steamLink": "https://store.steampowered.com/app/3146520/WEBFISHING/", "description": "Are you a fan of Animal Crossing? Maybe you enjoy relaxing while fishing up some new fish for your collection. Even make some money on the side.<br>WEBFISHING is just that, but with your friends (or strangers)!<br>Collect new and exotic fish. Unlock new bait, fishing poles, acessories, and more!<br>This is a pretty relaxing game, and pretty cheap too.", "reviewsLink": "https://store.steampowered.com/app/3146520/WEBFISHING/#app_reviews_hash", "price": "$4.99", "sales": "This game is still new and has not yet gone on sale"}, {"name": "Once Human", "linkName": "Once Human", "steamLink": "https://store.steampowered.com/app/2139460/Once_Human/", "description": "A multiplayer open-world survival game set in post-apocalyptic future.<br>This game looks as haunting as it is beautiful.<br>And the best part about it - it's free!", "reviewsLink": "https://store.steampowered.com/app/2139460/Once_Human/#app_reviews_hash", "price": "FREE", "sales": "This game is free, don't need a sale for free.99"}, {"name": "Tiny Glade", "linkName": "Tiny Glade", "steamLink": "https://store.steampowered.com/app/2198150/Tiny_Glade/", "description": "Tiny Glade is a unique no-objective, no-stress type of game.<br>This diorama builder gives you the tools you need to create the fantasy land of your dreams. No combat, no management. Just you, some nifty tools, some beautiful procedural details, and your favorite music or podcast.<br>This game is great to just sit with and relax with. Really, your only objective is experiment and see what you can make.", "reviewsLink": "https://store.steampowered.com/app/2198150/Tiny_Glade/#app_reviews_hash", "price": "$14.99", "sales": "This game is still pretty new but has gone on sale for $12.47 in the past"}, {"name": "Days Gone", "linkName": "Days Gone", "steamLink": "https://store.steampowered.com/app/1259420/Days_Gone/", "description": "Days Gone is an intense open-world action-adventure game set in a deadly post-apocalyptic America.<br>Take on the role of Deacon St. John, a drifter and bounty hunter trying to survive in a world ravaged by a global pandemic that has transformed humans into mindless, feral creatures known as Freakers.<br>Explore this broken world on your trusty motorcycle, taking down massive hordes of Freakers in intense combat scenarios while completing contracts to stay alive and searching for purpose.<br>With its thrilling 'Hordes' mechanic, where you'll need to fight for survival against waves of zombies, Days Gone is perfect for fans of action-packed adventures who crave a thrilling post-apocalyptic experience.", "reviewsLink": "https://store.steampowered.com/app/1259420/Days_Gone/#app_reviews_hash", "price": "$49.99", "sales": "This games goes on sale often for $12.49. Do not pay full price for this game!"}, {"name": "Universe Sandbox", "linkName": "Universe Sandbox", "steamLink": "https://store.steampowered.com/app/230290/Universe_Sandbox/", "description": "Universe Sandbox is an awe-inspiring physics-based space simulator that lets you unleash your creativity on a cosmic scale.<br>In this realistic sandbox simulator, you can explore the stunning beauty of our universe.<br>But it's not all about admiration - you're also free to experiment and play god by bending space and time to your will. What would happen if the Sun suddenly turned into a black hole? What if earth was twice as massive? What if Pluto was a planet again?<br>Universe sandbox will bring your CPU to it's knees with near limitless customization options. It also has VR support.<br>If you're a fan of space, planets, or throwing 265 moons at Mars, Universe Sandbox might be for you.", "reviewsLink": "https://store.steampowered.com/app/230290/Universe_Sandbox/#app_reviews_hash", "price": "$29.99", "sales": "This games goes on sale often for $20.09"}, {"name": "Bendy and the Ink Machine", "linkName": "Bendy and the Ink Machine", "steamLink": "https://store.steampowered.com/app/622650/Bendy_and_the_Ink_Machine/", "description": "Are you a fan of Disney? Mickey Mouse? Horror? Then you might like Bendy and The Ink Machine!<br>Bendy is a first person puzzle action horror game that takes on the style of old 'rubber hose' style cartoons.<br>Explore a beautifully stylized setting, lean into the cartoon horror, and watch out for the other characters within.<br>Objectively better than toontown.", "reviewsLink": "https://store.steampowered.com/app/622650/Bendy_and_the_Ink_Machine/#app_reviews_hash", "price": "$19.99", "sales": "This games goes on sale often for $3.99"}, {"name": "Squirrel with a Gun", "linkName": "Squirrel with a Gun", "steamLink": "https://store.steampowered.com/app/2067050/Squirrel_with_a_Gun/", "description": "In a world, where you are a Squirrel. And in a world where you have a gun. This is that world.<br>Squirrel with a gun takes all the fun of being a squirrel and combines it with all the fun of having a gun.<br>Hold on to your nuts, this one has got to be a banger.<br>Acorning to reviews, this game is really freaking cool.", "reviewsLink": "https://store.steampowered.com/app/2067050/Squirrel_with_a_Gun/#app_reviews_hash", "price": "$19.99", "sales": "This game rarely goes on sale for $13.99"}, {"name": "Who's Your Daddy?!", "linkName": "Who's Your Daddy?!", "steamLink": "https://store.steampowered.com/app/427730/Whos_Your_Daddy/", "description": "Are you ready to become a parent? Too late!<br>Who's Your Daddy thorws you in headfirst as a dad who does not know what hell he's doing. It's your job to make sure baby doesn't do get into any trouble.<br>Your baby should not:<br>- Use the washing machine as a hiding place<br>- Use the outlet as a fork cleaner<br>- Use bleach as mouthwash<br>- Sleep inside the oven<br>- Much much more<br><br>But wiat there's more! Who's youre dadddy is multiplayer!<br>Play with up to 7 of your friends as daddy or baby.", "reviewsLink": "https://store.steampowered.com/app/427730/Whos_Your_Daddy/#app_reviews_hash", "price": "$6.99", "sales": "This game rarely goes on sale for $3.49"}, {"name": "Octopath Traveler II", "linkName": "Octopath Traveler II", "steamLink": "https://store.steampowered.com/app/1971650/OCTOPATH_TRAVELER_II/", "description": "Are you a fan of JRPGs? Then look no further!<br>Octopath Traveler II is a critically acclaimed, visually stunning adventure through time.<br>In Octopath Traveler II, you play as 8 different characters. Each character is unique, telling a story in their own way. Play as each character on a journey to uncover their path until you uncover how their stories collide.<br><br>It's pretty expensive to be honest. But it is a critically acclaimed title for a reason. Maybe wait for a good sale before venturing out.", "reviewsLink": "https://store.steampowered.com/app/1971650/OCTOPATH_TRAVELER_II/#app_reviews_hash", "price": "$59.99", "sales": "This game frequenty goes on sale for $29.99 or $39.99"}, {"name": "MiSide", "linkName": "MiSide", "steamLink": "https://store.steampowered.com/app/2527500/MiSide/", "description": "This game comes right out of left field.<br>Care for and live with a character in a video game thats... in a video game... meta. Only to find that you yourself are in the game?!<br>What does that even mean? Find out in this totally not psychological horror, definitly innocent, fun-loving game!<br>It has great reviews, so surely it's good. Right?", "reviewsLink": "https://store.steampowered.com/app/2527500/MiSide/#app_reviews_hash", "price": "$14.99", "sales": "This game may go on sale for $13.49"}, {"name": "Timberborn", "linkName": "Timberborn", "steamLink": "https://store.steampowered.com/app/1062090/Timberborn/", "description": "DAM! This game is all about the dams.<br>You control an ever growing family of beavers as you engineer ways to prevent floods, take advantage of natural disasters, and flow control the 'bad water' that flows through your city.<br>Timberborn will test your creativity and keep you on your toes. Work hard and plan ahead to stay in front of potential tragedy.<br>And always remember - a wet beaver is a happy beaver!", "reviewsLink": "https://store.steampowered.com/app/1062090/Timberborn/#app_reviews_hash", "price": "$34.99", "sales": "This game frequently goes on sale for $24.49 or less"}, {"name": "Ori and The Blind Forest", "linkName": "Ori and The Blind Forest", "steamLink": "https://store.steampowered.com/app/387290/Ori_and_the_Blind_Forest_Definitive_Edition/", "description": "Ori and the Blind forest is a beautiful game that tells a beautiful story. Traverse your way through the forest in this platform style world as an orphan destined for heroics<br>Visually, this game is stunning. Taking full advantage of lights, HDR, and a carefully crafted world.<br>Make your way through this Action-Platformer, and uncover the story behind Ori and the forest he now resides.", "reviewsLink": "https://store.steampowered.com/app/387290/Ori_and_the_Blind_Forest_Definitive_Edition/#app_reviews_hash", "price": "$19.99", "sales": "This game frequently goes on sale for $4.99"}, {"name": "Fields of Mistria", "linkName": "Fields of Mistria", "steamLink": "https://store.steampowered.com/app/2142790/Fields_of_Mistria/", "description": "Fields of Mistria can best be described as a Stardew Valley like farming rpg - only this time, there's magic!<br>Build your farm, go fishing, discover relationships, improve the town, blah blah blah... We've all heard it before. But according to reviews, there appears to be something special with Fields of Mistria.<br>If you've ever been intimidated by the sheer scale of a game like Stardew, but enjoy the overall concept, this game might be for you.", "reviewsLink": "https://store.steampowered.com/app/2142790/Fields_of_Mistria/#app_reviews_hash", "price": "$13.99", "sales": "This game frequently goes on sale for $11.19"}, {"name": "A Game About Digging A Hole", "linkName": "A Game About Digging A Hole", "steamLink": "https://store.steampowered.com/app/3244220/A_Game_About_Digging_A_Hole/", "description": "The title says it all. It's literally a game about digging a hole.<br>Remember when you were a kid and you had the sudden urge to start digging to China? Only in your later years to find that China is the reason you suck at Call of Duty? Well this game allows you to relive those childhood days 10 times over!<br>Start off slow, digging a shallow, boring, hole while upgrading your digging tools along the way. Before you know it, you'll be exploring some forgotten city 892ft below that swing set uncle bud got you for christmas!", "reviewsLink": "https://store.steampowered.com/app/3244220/A_Game_About_Digging_A_Hole/#app_reviews_hash", "price": "$4.99", "sales": "This game is still new and has not gone on sale yet"}, {"name": "Hades", "linkName": "Hades", "steamLink": "https://store.steampowered.com/app/1145360/Hades/", "description": "You cannot kill what is not mortal.<br>Traverse the underworld in this hack and slash rogue-lite adventure, Hades.<br>Go toe to toe with creatures and gods of the underworld, and make your way deeper though the layers of hell until you come face to face with your greatest challenge.<br>The art, music, and gameplay of Hades is highly revered. And, as a bonus, this game plays very well on handhelds such as the [Steam Deck](<https://store.steampowered.com/steamdeck/>) and [ROG Ally X](<https://rog.asus.com/us/gaming-handhelds/rog-ally/rog-ally-x-2024/>).", "reviewsLink": "https://store.steampowered.com/app/1145360/Hades/#app_reviews_hash", "price": "$24.99", "sales": "This game frequently goes on sale for $9.99"}, {"name": "R.E.P.O.", "linkName": "R.E.P.O.", "steamLink": "https://store.steampowered.com/app/3241660/REPO/", "description": "Are you a fan of Lethal Company? Do you enjoy Co-Op horror games?<br>If so, R.E.P.O. is the game for you!<br>Traverse through abandoned houses, magical castles, decrepit research laboratories, and more in search of valuable items to bring back to the tax man. With up to six players able to jump in on the fun at once, R.E.P.O. makes for a great time!<br><br>It\u2019s not often we recommend a game that\u2019s actively riding the hype train. But whether you\u2019re in it for the horror, company, or laughs, R.E.P.O is definitely a unique game worth checking out.", "reviewsLink": "https://store.steampowered.com/app/3241660/REPO/#app_reviews_hash", "price": "$9.99", "sales": "This game is still new and has not gone on sale yet"}, {"name": "The Plucky Squire", "linkName": "The Plucky Squire", "steamLink": "https://store.steampowered.com/app/1627570/The_Plucky_Squire/", "description": "Remember those really cool and expensive picture books from the book fair that you always thought you had enough money for, only to discover that $30 is a lot more than the $3.27 you stole from the dresser? Well The Plucky Squire brings those pictures books to life!<br>A very unique take on 'brining stories to life', The Plucky Squire is a game in which you literally jump both in and out of story books (2D and 3D realms) to write your own story and save your friends.<br>The art and style of this game genulinely looks unique, clever, and beautiful. This is one of those games you may never have given a second glance at - so here's your chance - check out The Plucky Squire", "reviewsLink": "https://store.steampowered.com/app/1627570/The_Plucky_Squire/#app_reviews_hash", "price": "$29.99", "sales": "This game rarely goes on sale for $22.49"}, {"name": "It Takes Two", "linkName": "It Takes Two", "steamLink": "https://store.steampowered.com/app/1426210/It_Takes_Two/", "description": "Remember when you would come over to a friend's house, boot up the console, and ask the age old question: Is it two player?\"<br>It Takes Two brings that back. In fact", "reviewsLink": "it Takes Two is **Exclusively** two player!\\nGet together with a good friend", "price": "or significant other", "sales": " and embark on a journey to overcome the new and bizarre challenges the two protagonists face. In 'Honey I Shrunk The Kids' fashion"}, {"name": "Age of Empires II: Definitive Edition", "linkName": "Age of Empires II: Definitive Edition", "steamLink": "https://store.steampowered.com/app/813780/Age_of_Empires_II_Definitive_Edition/", "description": "Have you ever looked into the Age of Empires franchise? If not, maybe have a look at Age of Empires II.<br>Age of Empires II: Definitive Edition is known to be the pinnacle of the long loved Top Down Real Time Strategy game. And I mean Real Time, not Turn Based.<br>Build settlements, rally an army, defend and conquer the land. With 42 Civilizations, 229 Campaign Missions, single player, Co-Op multiplayer, PVP multiplayer, mods, and more, this is the way to play Age of Empires.", "reviewsLink": "https://store.steampowered.com/app/813780/Age_of_Empires_II_Definitive_Edition/#app_reviews_hash", "price": "$34.99", "sales": "This game goes on sale for $12.24 during seasonal sales events"}, {"name": "Balatro", "linkName": "Balatro", "steamLink": "https://store.steampowered.com/app/2379780/Balatro/", "description": "Fan of poker? Not a fan of poker? Don't know the rules? No problem!<br>Balatro adds a unique spin on classic Texas Holdem in a way that gamifies a game.<br>Collect jokers, modify your deck, make money (a lot of money), and score those sweet sweet multipliers.<br><br>*Warning*: This game is addicting.", "reviewsLink": "https://store.steampowered.com/app/2379780/Balatro/#app_reviews_hash", "price": "$14.99", "sales": "This game frequently goes on sale for $13.49"}, {"name": "Before Your Eyes", "linkName": "Before Your Eyes", "steamLink": "https://store.steampowered.com/app/1082430/Before_Your_Eyes/", "description": "Don't Blink.<br>Before Your Eyes, much like life, goes faster when you blink. That's right, a webcam is actually required to play this game as intended.<br>In Before Your Eyes, you will move forward (and only forward) on an emotional narrative adventure using one control, blinking. Don\u2019t worry though, this game only takes about one and a half hours to complete.<br>There's a reason this game is rated Overwhelmingly Positive. Grab it on sale, or if you've just been looking for something different.", "reviewsLink": "https://store.steampowered.com/app/1082430/Before_Your_Eyes/#app_reviews_hash", "price": "$9.99", "sales": "This game frequently goes on sale for $1.99"}, {"name": "Barotrauma", "linkName": "Barotrauma", "steamLink": "https://store.steampowered.com/app/602960/Barotrauma/", "description": "Dive deep into the darkest depths of the ocean, be a core member of your crew, and do your best to keep out the eldritch horrors that lurk below.<br>Barotrauma is a co-op submarine survival simulator, in space!<br>Man the ship, fix leaks, operate the generator, man the guns, and take out the monsters that lurk below. And don't forget to customize your ship in game or with mods.", "reviewsLink": "https://store.steampowered.com/app/602960/Barotrauma/#app_reviews_hash", "price": "$34.99", "sales": "This game frequently goes on sale for $17.49"}, {"name": "Blue Prince", "linkName": "Blue Prince", "steamLink": "https://store.steampowered.com/app/1569580/Blue_Prince/", "description": "There is a new genre of game coming into existence! Well it\u2019s not exactly new\u2026 but we\u2019ve never had a name for it before now.<br>Blue Prince is being deemed a new addition in the \u2018metroid-brainia\u2019 genre. You have arrived at Mt. Holly - where every day a new mystery awaits.<br>Each and every path is unpredictable, different from the previous day\u2019s, but knowledge is key.<br>Similar to games like Tunic, Outer Wilds, Animal Well, and maybe even Fez, Blue Prince is the type of game that requires you to build upon existing knowledge to reach its finale. Which is why it is being deemed the newest \u2018Metroid-Brainia\u2019 on the block. If you love puzzles or mystery, Blue Prince might be the game for you.", "reviewsLink": "https://store.steampowered.com/app/1569580/Blue_Prince/#app_reviews_hash", "price": "$29.99", "sales": "This game is still new, but has had one Sale so far at $26.99"}, {"name": "Donut County", "linkName": "Donut County", "steamLink": "https://store.steampowered.com/app/702670/Donut_County/", "description": "Have you ever had those days where you feel like an insatiable void who wants nothing more than to rip through the world, consuming everything and everyone in your path? Me too.<br>Good news is you can now live out that dream in Donut County!<br><br>Donut County is full of lovable characters, wholesome interactions, and stuff... so much stuff to consume.<br>You play as a hole. A hole that consumes objects, large and small, throughout donut county using the power of physics. Make your way through this puzzle like game while meeting some wholesome characters along the way in Donut County.", "reviewsLink": "https://store.steampowered.com/app/702670/Donut_County/#app_reviews_hash", "price": "$12.99", "sales": "This game frequently goes on sale for $3.89"}, {"name": "Project Zomboid", "linkName": "Project Zomboid", "steamLink": "https://store.steampowered.com/app/108600/Project_Zomboid/", "description": "This is how you died.<br><br>Anyone out there who is a true fan of zombie survival should know Project Zomboid. As a game best known as the pinnacle of unforgiving zombie survival RPGs, Project Zomboid will most definitely not hold your hand through the zombie apocalypse.<br>Select your skills wisely, as each trait you inherit or succumb to will either give you great advantage or crippling disadvantage. You could play as an obese man with a keen eye for marksmanship, a light sleeping vehicle mechanic with a smoking problem, or even a professional angler who just so happens to be completely deaf! The list of possibilities is near endless, and will make each death unique.<br><br>And that's just the thing. In this isometric syle zombie survival RPG, there is no winning, just living long enough to experience that first bite. Do you have what it takes to survive? If not, maybe consider dragging some friends into this hellhole with you.", "reviewsLink": "https://store.steampowered.com/app/108600/Project_Zomboid/#app_reviews_hash", "price": "$19.99", "sales": "This game goes on sale during major Steam events and seasonal events for $13.39"}, {"name": "Subnautica", "linkName": "Subnautica", "steamLink": "https://store.steampowered.com/app/264710/Subnautica/", "description": "Ever dreamt of a relaxing vacation on an alien planet? Well, forget the 'relaxing' part after your spaceship, the Aurora, decides to introduce you to Planet 4546B's ocean with a spectacular crash landing.<br>Now it's just you, your wits, and an entire aquatic world teeming with vibrant (and sometimes terrifyingly large) alien life.<br>Your mission: survive. Explore stunning coral reefs, treacherous deep-sea trenches, and mysterious alien structures.<br>Scavenge for resources, craft high-tech gear, build underwater bases that would make a Bond villain jealous, and pilot submarines to delve deeper into the unknown.<br>Just a heads up, you might develop a mild case of thalassophobia \u2013 that's a fancy word for 'fear of really, really deep water with big, toothy things in it'. But hey, the view is to die for (sometimes literally)!", "reviewsLink": "https://store.steampowered.com/app/264710/Subnautica/#app_reviews_hash", "price": "$29.99", "sales": "Subnautica frequently goes on sale, often for around $9.89 or with discounts up to 67% during major Steam sales (like Summer or Winter sales). It has also been offered for free on the Epic Games Store in the past, so keep an eye out!"}, {"name": "Diplomacy is Not an Option", "linkName": "Diplomacy is Not an Option", "steamLink": "https://store.steampowered.com/app/1272320/Diplomacy_is_Not_an_Option/", "description": "Wow! This is a super awesome test!<br>Test your might in Diplomacy is Not an Option. The best video game of all time... ever!", "reviewsLink": "https://store.steampowered.com/app/1272320/Diplomacy_is_Not_an_Option/#app_reviews_hash", "price": "$29.99", "sales": "This game often goes on sale for $13.99"}, {"name": "Cash Cleaner Simulator", "linkName": "Cash Cleaner Simulator", "steamLink": "https://store.steampowered.com/app/2488370/Cash_Cleaner_Simulator/", "description": "What a cool game!<br><br>Cash Cleaner Simulator is the best game. You should totally Try it out!", "reviewsLink": "https://store.steampowered.com/app/2488370/Cash_Cleaner_Simulator/#app_reviews_hash", "price": "$14.99", "sales": "This game often goes on sale for $13.49"}]; // Injected by Python
+
+        const aboutSection = document.getElementById('about-section');
+        const gamesListSection = document.getElementById('games-list-section');
+        const gameDetailSection = document.getElementById('game-detail-section');
+        const gameDetailContent = document.getElementById('game-detail-content');
+        const gameListContainer = document.getElementById('game-list-container');
+        const navAboutButton = document.getElementById('nav-about');
+        const navGamesButton = document.getElementById('nav-games');
+        const backToListButton = document.getElementById('back-to-list');
+        const darkModeToggleButton = document.getElementById('dark-mode-toggle');
+
+        function setDarkMode(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                darkModeToggleButton.textContent = '☀️ Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-mode');
+                darkModeToggleButton.textContent = '🌙 Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        darkModeToggleButton.addEventListener('click', () => {
+            setDarkMode(!document.body.classList.contains('dark-mode'));
+        });
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            setDarkMode(currentTheme === 'dark');
+        } else {
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setDarkMode(prefersDark);
+        }
+        function showSection(sectionToShow) {
+            [aboutSection, gamesListSection, gameDetailSection].forEach(section => {
+                section.classList.remove('active');
+            });
+            sectionToShow.classList.add('active');
+            [navAboutButton, navGamesButton].forEach(btn => btn.classList.remove('active'));
+            if (sectionToShow === aboutSection) navAboutButton.classList.add('active');
+            if (sectionToShow === gamesListSection || sectionToShow === gameDetailSection) navGamesButton.classList.add('active');
+        }
+        function getSteamAppId(steamLink) {
+            const match = steamLink.match(/\/app\/(\d+)\//);
+            return match ? match[1] : null;
+        }
+        function displayGameDetails(game) {
+            const appId = getSteamAppId(game.steamLink);
+            const steamImageUrl = appId ? `https://cdn.akamai.steamstatic.com/steam/apps/${appId}/header.jpg` : '';
+            const imageHtml = appId ? `<img src="${steamImageUrl}" alt="${game.name} Header Image" class="steam-header-image">` : '<p><em>(Header image not available)</em></p>';
+            
+            // The game.description from Python already has <br> tags
+            gameDetailContent.innerHTML = `
+                <div class="game-card">
+                    ${imageHtml}
+                    <h3>${game.name}</h3>
+                    <p><a href="${game.steamLink}" target="_blank" class="game-link">View ${game.linkName} on Steam</a></p>
+                    <div class="description"><p>${game.description}</p></div> 
+                    <p><a href="${game.reviewsLink}" target="_blank" class="reviews-link">Steam Reviews</a></p>
+                    <p class="price">MSRP: ${game.price}</p>
+                    <div class="sales-info">${game.sales}</div>
+                </div>`;
+            showSection(gameDetailSection);
+            window.scrollTo({ top: gameDetailSection.offsetTop - 20, behavior: 'smooth' });
+        }
+        function populateGameList() {
+            gameListContainer.innerHTML = ''; // Clear existing list
+            gamesData.forEach(game => {
+                const gameItem = document.createElement('div');
+                gameItem.classList.add('game-list-item');
+                
+                const gameNameSpan = document.createElement('span');
+                gameNameSpan.classList.add('game-name');
+                gameNameSpan.textContent = game.name;
+                
+                const gameMsrpSpan = document.createElement('span');
+                gameMsrpSpan.classList.add('game-msrp');
+                gameMsrpSpan.textContent = game.price; // Using the 'price' field from game data
+                
+                gameItem.appendChild(gameNameSpan);
+                gameItem.appendChild(gameMsrpSpan);
+                
+                gameItem.addEventListener('click', () => displayGameDetails(game));
+                gameListContainer.appendChild(gameItem);
+            });
+        }
+        navAboutButton.addEventListener('click', () => showSection(aboutSection));
+        navGamesButton.addEventListener('click', () => { populateGameList(); showSection(gamesListSection); });
+        backToListButton.addEventListener('click', () => showSection(gamesListSection));
+        showSection(aboutSection);
+        populateGameList();
+    </script>
+</body>
+</html>
+    
