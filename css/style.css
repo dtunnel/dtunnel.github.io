@@ -87,10 +87,12 @@ body.light-mode .header-bar {
 .site-title {
     margin: 0;
     color: var(--text-color-dark);
+<<<<<< refactor
     font-size: 2.6em; /* Slightly reduced default */
     font-weight: 700;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
     line-height: 1.1; /* Tighter line height for large text */
+ main
 }
 body.light-mode .site-title {
     color: var(--text-color-light);
