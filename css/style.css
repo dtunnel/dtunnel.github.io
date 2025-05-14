@@ -1,0 +1,330 @@
+/* css/style.css */
+
+:root {
+    --bg-color: #f0f2f5;
+    --text-color: #333;
+    --header-text-color: #2c3e50;
+    --header-shadow-color: #bdc3c7;
+    --nav-bg-color: #34495e;
+    --nav-button-bg-color: #3498db;
+    --nav-button-hover-bg-color: #2980b9;
+    --nav-button-text-color: white;
+    --content-bg-color: #ffffff;
+    --content-shadow-color: rgba(0,0,0,0.1);
+    --section-title-color: #2c3e50;
+    --section-title-border-color: #3498db;
+    --about-text-color: #555;
+    --game-list-item-bg-color: #ecf0f1;
+    --game-list-item-text-color: #2c3e50;
+    --game-list-item-hover-bg-color: #bdc3c7;
+    --game-list-item-border-color: #dde1e2;
+    --game-list-price-color: #27ae60;
+    --game-card-title-color: #3498db;
+    --game-header-image-border-color: #ddd;
+    --link-color: #2980b9;
+    --description-border-color: #3498db;
+    --description-text-color: #555;
+    --price-color: #27ae60; /* For the detail card MSRP */
+    --sales-info-bg-color: #ecf0f1;
+    --sales-info-text-color: #7f8c8d;
+    --back-button-bg-color: #e74c3c;
+    --back-button-hover-bg-color: #c0392b;
+    --footer-text-color: #7f8c8d;
+    --dark-mode-toggle-bg: #7f8c8d;
+    --dark-mode-toggle-text: white;
+    --search-bar-bg: #fff;
+    --search-bar-border: #ccc;
+    --search-bar-text: #333;
+}
+
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --header-text-color: #ecf0f1;
+    --header-shadow-color: #000;
+    --nav-bg-color: #2c3e50;
+    --content-bg-color: #2b2b2b;
+    --content-shadow-color: rgba(255,255,255,0.05);
+    --section-title-color: #ecf0f1;
+    --about-text-color: #bdc3c7;
+    --game-list-item-bg-color: #3e3e3e;
+    --game-list-item-text-color: #ecf0f1;
+    --game-list-item-hover-bg-color: #555;
+    --game-list-item-border-color: #4a4a4a;
+    --game-list-price-color: #2ecc71;
+    --game-header-image-border-color: #555;
+    --link-color: #5dade2;
+    --description-text-color: #bdc3c7;
+    --price-color: #2ecc71; /* For the detail card MSRP in dark mode */
+    --sales-info-bg-color: #3e3e3e;
+    --sales-info-text-color: #bdc3c7;
+    --back-button-bg-color: #c0392b;
+    --back-button-hover-bg-color: #e74c3c;
+    --footer-text-color: #95a5a6;
+    --dark-mode-toggle-bg: #4e5d6c;
+    --dark-mode-toggle-text: #ecf0f1;
+    --search-bar-bg: #3e3e3e;
+    --search-bar-border: #555;
+    --search-bar-text: #e0e0e0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    max-width: 950px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-bar h1 {
+    margin: 0;
+    color: var(--header-text-color);
+    font-size: 2.5em;
+    text-shadow: 1px 1px 2px var(--header-shadow-color);
+    text-align: left;
+}
+
+#dark-mode-toggle {
+    background-color: var(--dark-mode-toggle-bg);
+    color: var(--dark-mode-toggle-text);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+#dark-mode-toggle:hover {
+    opacity: 0.9;
+}
+
+nav {
+    background-color: var(--nav-bg-color);
+    padding: 10px 0;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+nav button {
+    background-color: var(--nav-button-bg-color);
+    color: var(--nav-button-text-color);
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+nav button:hover,
+nav button.active {
+    background-color: var(--nav-button-hover-bg-color);
+}
+
+.content-section {
+    display: none; /* Hidden by default */
+    padding: 20px;
+    background-color: var(--content-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--content-shadow-color);
+    margin-bottom: 20px;
+    animation: fadeInContent 0.5s ease-out;
+}
+
+.content-section.active {
+    display: block;
+}
+
+@keyframes fadeInContent {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#about-section h2,
+#games-list-section h2,
+#game-detail-section h2 {
+    color: var(--section-title-color);
+    border-bottom: 2px solid var(--section-title-border-color);
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+#about-section p {
+    font-size: 1.1em;
+    color: var(--about-text-color);
+}
+
+#search-bar {
+    width: calc(100% - 30px); /* Adjusted to better fit common padding */
+    padding: 10px 15px;
+    margin-bottom: 20px; /* Space between search bar and list */
+    border: 1px solid var(--search-bar-border);
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: var(--search-bar-bg);
+    color: var(--search-bar-text);
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+
+.game-list-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 0; /* Remove gap, use borders for separation */
+}
+
+.game-list-item {
+    background-color: var(--game-list-item-bg-color);
+    color: var(--game-list-item-text-color);
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--game-list-item-border-color);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: flex; /* For aligning name and price */
+    justify-content: space-between; /* Push name and price apart */
+    align-items: center; /* Vertically align */
+    font-weight: 500;
+}
+
+.game-list-item:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.game-list-item:last-child {
+    border-bottom: none; /* No border for the last item */
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.game-list-item:hover {
+    background-color: var(--game-list-item-hover-bg-color);
+}
+
+.game-list-item .game-name {
+    flex-grow: 1; /* Allow game name to take available space */
+    margin-right: 10px; /* Ensure some space if name is very long */
+}
+
+.game-list-item .game-msrp {
+    margin-left: 20px; /* Space between name and price */
+    font-weight: bold;
+    color: var(--game-list-price-color);
+    white-space: nowrap; /* Prevent price from wrapping */
+}
+
+.game-card {
+    background-color: var(--content-bg-color); 
+    border-radius: 8px;
+    padding: 0; 
+}
+
+.game-card .steam-header-image {
+    width: 100%;
+    max-width: 460px; 
+    height: auto; 
+    border-radius: 6px; 
+    margin-bottom: 15px;
+    border: 1px solid var(--game-header-image-border-color);
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.game-card h3 {
+    margin-top: 0;
+    color: var(--game-card-title-color);
+    font-size: 1.8em;
+    text-align: center;
+    margin-bottom: 15px; 
+}
+
+.game-card .game-link,
+.game-card .reviews-link {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.game-card .game-link:hover,
+.game-card .reviews-link:hover {
+    text-decoration: underline;
+}
+
+.game-card p { 
+    margin-bottom: 10px;
+}
+
+.game-card .description {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+    border-left: 3px solid var(--description-border-color);
+    font-style: italic;
+    color: var(--description-text-color);
+}
+
+.game-card .description p {
+    margin-bottom: 0;
+}
+
+
+.game-card .price { 
+    font-weight: bold;
+    color: var(--price-color);
+    font-size: 1.2em;
+}
+
+.game-card .sales-info {
+    font-size: 0.9em;
+    color: var(--sales-info-text-color);
+    background-color: var(--sales-info-bg-color);
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.back-to-list-button {
+    display: inline-block;
+    background-color: var(--back-button-bg-color);
+    color: var(--nav-button-text-color); 
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 0; /* Adjust if it's not the very first element after h2 in its section */
+    margin-bottom: 10px; 
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.back-to-list-button:hover {
+    background-color: var(--back-button-hover-bg-color);
+}
+
+footer { /* Renamed from .footer-text to footer for the element */
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    font-size: 0.9em;
+    color: var(--footer-text-color);
+}
