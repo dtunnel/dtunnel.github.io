@@ -46,6 +46,8 @@
     --box-shadow-dark-theme: 0 4px 15px rgba(0, 0, 0, 0.3);
     --transition-speed: 0.25s;
 }
+
+/* Initialize with dark theme variables */
 body {
     font-family: var(--font-family);
     margin: 0;
@@ -55,6 +57,8 @@ body {
     line-height: 1.7;
     font-size: 16px;
     transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    -webkit-font-smoothing: antialiased; /* Smoother fonts on some displays */
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body.light-mode {
@@ -64,16 +68,16 @@ body.light-mode {
 
 .container {
     max-width: 1000px;
-    margin: 30px auto;
-    padding: 0 25px;
+    margin: 20px auto; /* Reduced top/bottom margin for mobile later */
+    padding: 0 20px; /* Reduced default horizontal padding for mobile later */
 }
 
 .header-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
+    margin-bottom: 25px; /* Reduced margin */
+    padding-bottom: 15px; /* Reduced padding */
     border-bottom: 1px solid var(--border-color-dark);
 }
 body.light-mode .header-bar {
@@ -83,9 +87,12 @@ body.light-mode .header-bar {
 .site-title {
     margin: 0;
     color: var(--text-color-dark);
-    font-size: 2.8em;
+<<<<<< refactor
+    font-size: 2.6em; /* Slightly reduced default */
     font-weight: 700;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    line-height: 1.1; /* Tighter line height for large text */
+ main
 }
 body.light-mode .site-title {
     color: var(--text-color-light);
@@ -103,15 +110,16 @@ body.light-mode .site-title .title-accent {
     background-color: var(--bg-secondary-dark);
     color: var(--text-color-dark);
     border: 1px solid var(--border-color-dark);
-    padding: 10px 18px;
+    padding: 8px 15px; /* Slightly smaller */
     border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: 0.85em; /* Slightly smaller */
     font-weight: 700;
     transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform 0.1s ease;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px; /* Reduced gap */
+    white-space: nowrap; /* Prevent text wrapping */
 }
 body.light-mode #dark-mode-toggle {
     background-color: var(--bg-secondary-light);
@@ -120,7 +128,7 @@ body.light-mode #dark-mode-toggle {
 }
 #dark-mode-toggle:hover {
     background-color: var(--accent-color-dark);
-    color: var(--bg-content-dark); /* Contrast text on hover */
+    color: var(--bg-content-dark);
 }
 body.light-mode #dark-mode-toggle:hover {
     background-color: var(--accent-color-light);
@@ -133,14 +141,14 @@ body.light-mode #dark-mode-toggle:hover {
 
 .main-nav {
     background-color: var(--bg-content-dark);
-    padding: 10px;
-    margin-bottom: 30px;
+    padding: 8px; /* Reduced padding */
+    margin-bottom: 25px; /* Reduced margin */
     border-radius: var(--border-radius);
     text-align: center;
     box-shadow: var(--box-shadow-dark-theme);
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 10px; /* Reduced gap */
 }
 body.light-mode .main-nav {
     background-color: var(--bg-secondary-light);
@@ -151,10 +159,10 @@ body.light-mode .main-nav {
     background-color: transparent;
     color: var(--text-secondary-dark);
     border: 2px solid transparent;
-    padding: 12px 25px;
+    padding: 10px 20px; /* Adjusted padding */
     border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 1.05em;
+    font-size: 1em; /* Adjusted font size */
     font-weight: 700;
     transition: all var(--transition-speed) ease;
     text-transform: uppercase;
@@ -194,11 +202,11 @@ body.light-mode .nav-button.active {
 
 .content-section {
     display: none;
-    padding: 25px 30px;
+    padding: 20px; /* Reduced padding */
     background-color: var(--bg-content-dark);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow-dark-theme);
-    margin-bottom: 30px;
+    margin-bottom: 25px; /* Reduced margin */
     animation: fadeInContent 0.6s ease-out forwards;
 }
 body.light-mode .content-section {
@@ -218,10 +226,10 @@ body.light-mode .content-section {
 #games-list-section .controls-header h2 {
     color: var(--text-color-dark);
     border-bottom: 2px solid var(--accent-color-dark);
-    padding-bottom: 12px;
+    padding-bottom: 10px; /* Reduced padding */
     margin-top: 0;
-    margin-bottom: 25px;
-    font-size: 1.8em;
+    margin-bottom: 20px; /* Reduced margin */
+    font-size: 1.7em; /* Slightly reduced */
 }
 body.light-mode #about-section h2,
 body.light-mode #games-list-section .controls-header h2 {
@@ -230,24 +238,24 @@ body.light-mode #games-list-section .controls-header h2 {
 }
 
 #about-section p {
-    font-size: 1.1em;
+    font-size: 1.05em; /* Slightly reduced */
     color: var(--text-secondary-dark);
-    margin-bottom: 15px;
+    margin-bottom: 12px; /* Reduced margin */
 }
 body.light-mode #about-section p {
     color: var(--text-secondary-light);
 }
 
 .controls-header {
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduced margin */
 }
 .filter-sort-controls {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    gap: 20px; /* Space between search and sort */
+    flex-wrap: wrap; 
+    gap: 15px; /* Reduced gap */
     align-items: center;
-    margin-top: 15px;
-    padding: 15px;
+    margin-top: 10px; /* Reduced margin */
+    padding: 12px; /* Reduced padding */
     background-color: var(--bg-secondary-dark);
     border-radius: var(--border-radius);
 }
@@ -257,15 +265,15 @@ body.light-mode .filter-sort-controls {
 }
 
 #search-bar {
-    flex-grow: 1; /* Take available space */
-    padding: 12px 18px;
+    flex-grow: 1; 
+    padding: 10px 15px; /* Adjusted padding */
     border: 1px solid var(--input-border-dark);
     border-radius: var(--border-radius);
-    font-size: 1em;
+    font-size: 0.95em; /* Slightly smaller */
     background-color: var(--input-bg-dark);
     color: var(--input-text-dark);
     box-sizing: border-box;
-    min-width: 200px; /* Minimum width before wrapping */
+    min-width: 180px; 
     transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
 }
 body.light-mode #search-bar {
@@ -287,22 +295,23 @@ body.light-mode #search-bar:focus {
 .sort-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px; /* Reduced gap */
 }
 .sort-controls label {
     font-weight: 700;
     color: var(--text-secondary-dark);
+    font-size: 0.9em; /* Smaller label */
 }
 body.light-mode .sort-controls label {
     color: var(--text-secondary-light);
 }
 #sort-select {
-    padding: 12px 15px;
+    padding: 10px 12px; /* Adjusted padding */
     border: 1px solid var(--input-border-dark);
     border-radius: var(--border-radius);
     background-color: var(--input-bg-dark);
     color: var(--input-text-dark);
-    font-size: 0.95em;
+    font-size: 0.9em; /* Smaller select */
     font-weight: 700;
     cursor: pointer;
     transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
@@ -329,17 +338,17 @@ body.light-mode #sort-select:focus {
     gap: 0;
     border: 1px solid var(--border-color-dark);
     border-radius: var(--border-radius);
-    overflow: hidden; /* To make border-radius work with children */
-    margin-top: 20px;
+    overflow: hidden; 
+    margin-top: 15px; /* Reduced margin */
 }
 body.light-mode .game-list-container {
     border: 1px solid var(--border-color-light);
 }
 
 .game-list-item {
-    background-color: var(--bg-content-dark); /* Use content bg for consistency */
+    background-color: var(--bg-content-dark); 
     color: var(--text-color-dark);
-    padding: 15px 20px;
+    padding: 12px 15px; /* Adjusted padding */
     border-bottom: 1px solid var(--border-color-dark);
     cursor: pointer;
     transition: background-color var(--transition-speed) ease, transform 0.15s ease, box-shadow var(--transition-speed) ease;
@@ -361,7 +370,7 @@ body.light-mode .game-list-item {
 .game-list-item:hover {
     background-color: var(--bg-secondary-dark);
     transform: translateX(5px);
-    box-shadow: inset -5px 0 0 var(--accent-color-dark); /* Left highlight on hover */
+    box-shadow: inset -5px 0 0 var(--accent-color-dark); 
 }
 body.light-mode .game-list-item:hover {
     background-color: var(--bg-secondary-light);
@@ -370,15 +379,15 @@ body.light-mode .game-list-item:hover {
 
 .game-list-item .game-name {
     flex-grow: 1;
-    margin-right: 15px;
-    font-size: 1.1em;
+    margin-right: 10px; 
+    font-size: 1.05em; /* Slightly adjusted */
 }
 .game-list-item .game-msrp {
-    margin-left: 20px;
+    margin-left: 15px; /* Reduced margin */
     font-weight: 700;
     color: var(--price-color-dark);
     white-space: nowrap;
-    font-size: 1.05em;
+    font-size: 1em; /* Slightly adjusted */
 }
 body.light-mode .game-list-item .game-msrp {
     color: var(--price-color-light);
@@ -390,14 +399,15 @@ body.light-mode .game-list-item .game-msrp {
     background-color: var(--bg-secondary-dark);
     color: var(--accent-color-dark);
     border: 1px solid var(--accent-color-dark);
-    padding: 10px 20px;
+    padding: 8px 18px; /* Adjusted */
     border-radius: var(--border-radius);
     text-decoration: none;
-    margin-bottom: 25px;
+    margin-bottom: 20px; /* Adjusted */
     transition: all var(--transition-speed) ease;
     cursor: pointer;
     font-weight: 700;
-    display: inline-flex; /* For icon alignment if added */
+    font-size: 0.95em; /* Slightly smaller */
+    display: inline-flex; 
     align-items: center;
 }
 body.light-mode #game-detail-section .back-to-list-button {
@@ -421,11 +431,10 @@ body.light-mode #game-detail-section .back-to-list-button:hover {
 }
 
 #game-detail-content .game-card {
-    /* .game-card is the direct child of #game-detail-content */
-    padding: 20px; /* Add padding inside the card */
+    padding: 15px; /* Reduced padding */
     border: 1px solid var(--border-color-dark);
     border-radius: var(--border-radius);
-    background-color: var(--bg-secondary-dark); /* Slightly different from main content bg */
+    background-color: var(--bg-secondary-dark); 
 }
 body.light-mode #game-detail-content .game-card {
     border: 1px solid var(--border-color-light);
@@ -435,10 +444,10 @@ body.light-mode #game-detail-content .game-card {
 
 #game-detail-content .game-card h3 { /* Game Title */
     color: var(--text-color-dark);
-    font-size: 2.6em;
+    font-size: 2.2em; /* MODIFIED: Was 2.6em, reducing for general, will increase for desktop */
     text-align: left;
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: 12px; /* Reduced */
     font-weight: 700;
     line-height: 1.2;
 }
@@ -448,10 +457,10 @@ body.light-mode #game-detail-content .game-card h3 {
 
 #game-detail-content .game-card .steam-header-image {
     width: 100%;
-    max-width: 500px; /* Slightly larger if desired */
+    max-width: 460px; /* MODIFIED: Was 500px, ensuring it fits smaller cards well */
     height: auto;
     border-radius: var(--border-radius);
-    margin: 0 auto 25px auto; /* Center and add margin */
+    margin: 0 auto 20px auto; /* Reduced bottom margin */
     border: 2px solid var(--border-color-dark);
     display: block;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -462,8 +471,8 @@ body.light-mode #game-detail-content .game-card .steam-header-image {
 
 
 #game-detail-content .game-card p {
-    margin-bottom: 12px;
-    font-size: 1.05em;
+    margin-bottom: 10px; /* Reduced */
+    font-size: 1em; /* MODIFIED: Was 1.05em */
     color: var(--text-secondary-dark);
 }
 body.light-mode #game-detail-content .game-card p {
@@ -476,7 +485,9 @@ body.light-mode #game-detail-content .game-card p {
     text-decoration: none;
     font-weight: 700;
     transition: color var(--transition-speed) ease, text-shadow 0.2s ease;
-    padding: 3px 0; /* Add a bit of vertical space for the "button" feel */
+    padding: 2px 0; /* Reduced */
+    display: block; /* Make links block for better tap targets on mobile */
+    margin-bottom: 10px; /* Spacing between block links */
 }
 body.light-mode #game-detail-content .game-card p > a.game-link,
 body.light-mode #game-detail-content .game-card p > a.reviews-link {
@@ -497,12 +508,12 @@ body.light-mode #game-detail-content .game-card p > a.reviews-link:hover {
 
 
 #game-detail-content .game-card .description {
-    margin: 25px 0;
-    padding: 20px;
+    margin: 20px 0; /* Reduced margin */
+    padding: 15px;   /* Reduced padding */
     border-left: 4px solid var(--accent-color-dark);
-    background-color: var(--bg-content-dark); /* Darker inner box */
+    background-color: var(--bg-content-dark); 
     color: var(--text-color-dark);
-    font-style: normal; /* Overriding previous italic if not desired for all of it */
+    font-style: normal; 
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
 body.light-mode #game-detail-content .game-card .description {
@@ -511,10 +522,10 @@ body.light-mode #game-detail-content .game-card .description {
     color: var(--text-color-light);
 }
 #game-detail-content .game-card .description p {
-    margin-bottom: 10px;
-    line-height: 1.8;
-    font-size: 1em;
-    color: inherit; /* Inherit from .description */
+    margin-bottom: 8px; /* Reduced margin */
+    line-height: 1.7; /* Slightly reduced for smaller text */
+    font-size: 0.95em; /* Slightly reduced */
+    color: inherit; 
 }
 #game-detail-content .game-card .description p:last-child {
     margin-bottom: 0;
@@ -524,24 +535,23 @@ body.light-mode #game-detail-content .game-card .description {
 #game-detail-content .game-card .price { /* MSRP in detail card */
     font-weight: 700;
     color: var(--price-color-dark);
-    font-size: 1.6em;
+    font-size: 1.4em; /* MODIFIED: Was 1.6em */
     text-align: right;
-    margin-top: 25px;
-    margin-bottom: 8px;
+    margin-top: 20px; /* Reduced margin */
+    margin-bottom: 6px; /* Reduced margin */
 }
 body.light-mode #game-detail-content .game-card .price {
     color: var(--price-color-light);
 }
 
 #game-detail-content .game-card .sales-info {
-    font-size: 1em;
+    font-size: 0.95em; /* MODIFIED: Was 1em */
     font-weight: 700;
-    padding: 12px 18px;
+    padding: 10px 15px; /* Adjusted padding */
     border-radius: var(--border-radius);
     margin-top: 0px;
-    margin-bottom: 25px;
+    margin-bottom: 20px; /* Reduced margin */
     text-align: center;
-    /* Using specific theme variables for highlight */
 }
 body:not(.dark-mode) #game-detail-content .game-card .sales-info {
     background-color: var(--sales-info-bg-light);
@@ -555,11 +565,11 @@ body.dark-mode #game-detail-content .game-card .sales-info {
 }
 
 
-footer {
+footer { 
     text-align: center;
-    margin-top: 40px;
-    padding: 30px 20px;
-    font-size: 0.95em;
+    margin-top: 30px; /* Reduced margin */
+    padding: 25px 15px; /* Adjusted padding */
+    font-size: 0.9em; /* Slightly reduced */
     color: var(--text-secondary-dark);
     border-top: 1px solid var(--border-color-dark);
 }
@@ -578,6 +588,194 @@ body.light-mode *:focus-visible {
     outline: 3px solid var(--accent-color-light);
     box-shadow: 0 0 10px var(--highlight-glow-light);
 }
-#search-bar:focus-visible, #sort-select:focus-visible {
-     /* Handled by existing :focus styles, but ensure they are distinct */
+
+/* --- MOBILE RESPONSIVE STYLES --- */
+@media (max-width: 768px) {
+    body {
+        font-size: 15px; /* Slightly smaller base font for mobile */
+    }
+
+    .container {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        padding: 0 15px; /* Less horizontal padding */
+    }
+
+    .header-bar {
+        flex-direction: column; /* Stack title and toggle */
+        gap: 15px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+    }
+
+    .site-title {
+        font-size: 2em; /* Significantly smaller title on mobile */
+        text-align: center; /* Center title on mobile */
+    }
+
+    #dark-mode-toggle {
+        padding: 8px 12px;
+        font-size: 0.8em;
+    }
+
+    .main-nav {
+        flex-direction: column; /* Stack nav buttons */
+        gap: 8px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .nav-button {
+        padding: 10px 15px;
+        font-size: 0.95em;
+    }
+
+    .content-section {
+        padding: 15px; /* Less padding in content sections */
+        margin-bottom: 20px;
+    }
+
+    #about-section h2,
+    #games-list-section .controls-header h2 {
+        font-size: 1.5em; /* Smaller section titles */
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+    }
+    
+    #about-section p {
+        font-size: 1em;
+    }
+
+    .filter-sort-controls {
+        flex-direction: column; /* Stack search and sort */
+        gap: 15px;
+        padding: 10px;
+    }
+
+    #search-bar {
+        width: 100%; /* Full width for search bar */
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .sort-controls {
+        width: 100%;
+        justify-content: space-between; /* Space out label and select */
+    }
+    .sort-controls label {
+        font-size: 0.85em;
+    }
+    #sort-select {
+        padding: 10px;
+        font-size: 0.85em;
+        flex-grow: 1; /* Allow select to take more space */
+    }
+
+    .game-list-item {
+        padding: 10px 12px; /* Smaller padding in list items */
+        flex-direction: column; /* Stack name and price on mobile */
+        align-items: flex-start; /* Align items to the start */
+        gap: 5px;
+    }
+    .game-list-item .game-name {
+        font-size: 1em;
+        margin-right: 0;
+    }
+    .game-list-item .game-msrp {
+        font-size: 0.9em;
+        margin-left: 0; /* No left margin when stacked */
+        align-self: flex-end; /* Push price to the end of the stacked item */
+    }
+    .game-list-item:hover {
+        transform: translateX(3px); /* Less pronounced hover effect */
+        box-shadow: inset -3px 0 0 var(--accent-color-dark);
+    }
+     body.light-mode .game-list-item:hover {
+        box-shadow: inset -3px 0 0 var(--accent-color-light);
+    }
+
+
+    #game-detail-section .back-to-list-button {
+        width: 100%;
+        justify-content: center;
+        padding: 10px;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+    
+    #game-detail-content .game-card {
+        padding: 15px; /* Less padding in the card */
+    }
+
+    #game-detail-content .game-card h3 { /* Game Title on Mobile */
+        font-size: 1.8em; /* Smaller title */
+        margin-bottom: 10px;
+        line-height: 1.3;
+    }
+
+    #game-detail-content .game-card .steam-header-image {
+        margin-bottom: 15px;
+        max-width: 100%; /* Allow image to be full width of its container */
+    }
+    
+    #game-detail-content .game-card p {
+        font-size: 0.95em; /* Slightly smaller text */
+    }
+    #game-detail-content .game-card p > a.game-link,
+    #game-detail-content .game-card p > a.reviews-link {
+        margin-bottom: 8px;
+    }
+
+
+    #game-detail-content .game-card .description {
+        margin: 15px 0;
+        padding: 12px;
+        font-size: 0.9em; /* Smaller description text */
+    }
+     #game-detail-content .game-card .description p {
+        font-size: 1em; /* Reset to base for readability within description */
+        line-height: 1.6;
+    }
+
+
+    #game-detail-content .game-card .price { /* MSRP on Mobile */
+        font-size: 1.2em; /* Smaller MSRP */
+        text-align: right; /* Keep right aligned or change to left if preferred */
+        margin-top: 15px;
+    }
+
+    #game-detail-content .game-card .sales-info {
+        font-size: 0.9em; /* Smaller sales info text */
+        padding: 8px 12px;
+        margin-bottom: 15px;
+    }
+
+    footer {
+        padding: 20px 10px;
+        font-size: 0.85em;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-title {
+        font-size: 1.7em; /* Even smaller for very small screens */
+    }
+    .nav-button {
+        font-size: 0.9em;
+        padding: 8px 15px;
+    }
+    #about-section p {
+        font-size: 0.95em;
+    }
+    #game-detail-content .game-card h3 {
+        font-size: 1.6em;
+    }
+     #game-detail-content .game-card .price {
+        font-size: 1.1em;
+    }
+    #game-detail-content .game-card .sales-info,
+    #game-detail-content .game-card .description p {
+        font-size: 0.9em;
+    }
 }
