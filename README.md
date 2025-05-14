@@ -43,14 +43,6 @@ The website is automatically generated from a CSV data source, ensuring that upd
         *   Committing and pushing the updated HTML file back to GitHub.
     *   This can be scheduled with a cron job for weekly updates.
 
-## 📂 Repository Structure
-.
-├── game-of-the-week-automated - Old GOTW (1).csv # Primary data source for games
-├── generate_website.py # Python script to generate the website
-├── game_showcase_generated.html # The generated website (this is what GitHub Pages will serve)
-├── update_gotw_github.sh # Optional shell script for automation
-└── README.md # This file
-
 ## 💡 Future Ideas (Potential Enhancements)
 
 *   Search/Filter functionality for games.
