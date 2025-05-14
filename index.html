@@ -3,38 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Of The Week Interactive Showcase</title>
+    <title>Game Of The Week - Steam Edition</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="dark-mode">
     <div class="container">
         <header class="header-bar">
-            <h1>Game Of The Week</h1>
-            <button id="dark-mode-toggle">🌙 Dark Mode</button>
+            <h1 class="site-title">Game <span class="title-accent">Of The</span> Week</h1>
+            <button id="dark-mode-toggle" aria-label="Toggle Dark/Light Mode">
+                {/* Icon will be handled by JS */}
+            </button>
         </header>
-        <nav>
-            <button id="nav-about" class="active">About GOTW</button>
-            <button id="nav-games">Browse Games</button>
+        <nav class="main-nav">
+            <button id="nav-about" class="nav-button active" aria-pressed="true">About GOTW</button>
+            <button id="nav-games" class="nav-button" aria-pressed="false">Browse Games</button>
         </nav>
         <main>
             <section id="about-section" class="content-section active">
-                <h2>Welcome to Game Of The Week!</h2>
-                <p>This is your curated spot for discovering fantastic games, hand-picked each week. Our selections cover a wide range of genres and styles, from indie gems to critically acclaimed titles.</p>
-                <p>Each entry includes its Steam header image, a custom description highlighting what makes the game special, links to its Steam page and reviews, current pricing, and information on historical sales so you know when to grab the best deals.</p>
-                <p>Click on "Browse Games" to explore the archive!</p>
+                <h2>Welcome to the Game Showcase!</h2>
+                <p>Discover hand-picked game recommendations every week. We dive into what makes each title special, from indie darlings to blockbuster hits.</p>
+                <p>Explore detailed insights, check out Steam links, pricing, sales history, and get ready to find your next favorite game. Use the "Browse Games" tab to start your adventure!</p>
             </section>
+
             <section id="games-list-section" class="content-section">
-                <h2>All Games</h2>
-                <input type="text" id="search-bar" placeholder="Search games by name...">
-                <div class="game-list-container" id="game-list-container"></div>
+                <div class="controls-header">
+                    <h2>All Games</h2>
+                    <div class="filter-sort-controls">
+                        <input type="text" id="search-bar" placeholder="Search games..." aria-label="Search games by name">
+                        <div class="sort-controls">
+                            <label for="sort-select">Sort by:</label>
+                            <select id="sort-select" aria-label="Sort games by">
+                                <option value="original">Original (Date)</option>
+                                <option value="price-asc">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                                <option value="alpha-asc">Alphabetical: A-Z</option>
+                                <option value="alpha-desc">Alphabetical: Z-A</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-list-container" id="game-list-container" role="list">
+                </div>
             </section>
+
             <section id="game-detail-section" class="content-section">
-                <button class="back-to-list-button" id="back-to-list">« Back to Games List</button>
-                <div id="game-detail-content"></div>
+                <button class="back-to-list-button" id="back-to-list" aria-label="Back to games list">
+                    « Back to Games
+                </button>
+                <article id="game-detail-content" aria-live="polite">
+                </article>
             </section>
         </main>
         <footer>
-            <p class="footer-text">Happy Gaming! Your Friendly Neighborhood Game Recommender.</p>
+            <p>Happy Gaming!</p>
         </footer>
     </div>
     <script src="js/script.js"></script>

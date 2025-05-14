@@ -1,360 +1,585 @@
 /* css/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
 
 :root {
-    --bg-color: #f0f2f5;
-    --text-color: #333;
-    --header-text-color: #2c3e50;
-    --header-shadow-color: #bdc3c7;
-    --nav-bg-color: #34495e;
-    --nav-button-bg-color: #3498db;
-    --nav-button-hover-bg-color: #2980b9;
-    --nav-button-text-color: white;
-    --content-bg-color: #ffffff;
-    --content-shadow-color: rgba(0,0,0,0.1);
-    --section-title-color: #2c3e50;
-    --section-title-border-color: #3498db;
-    --about-text-color: #555;
-    --game-list-item-bg-color: #ecf0f1;
-    --game-list-item-text-color: #2c3e50;
-    --game-list-item-hover-bg-color: #bdc3c7;
-    --game-list-item-border-color: #dde1e2;
-    --game-list-price-color: #27ae60; /* For MSRP in the list view */
-    --game-card-title-color: #3498db;
-    --game-header-image-border-color: #ddd;
-    --link-color: #2980b9;
-    --description-border-color: #3498db;
-    --description-text-color: #555;
-    --price-color: #27ae60; /* For MSRP in the detail card view */
-    --sales-info-bg-color-light-highlight: rgba(255, 235, 59, 0.3); /* Transparent yellow for light mode */
-    --sales-info-text-color-light-highlight: #514501; /* Darker yellow/brown text for light mode highlight */
-    --back-button-bg-color: #e74c3c;
-    --back-button-hover-bg-color: #c0392b;
-    --footer-text-color: #7f8c8d;
-    --dark-mode-toggle-bg: #7f8c8d;
-    --dark-mode-toggle-text: white;
-    --search-bar-bg: #fff;
-    --search-bar-border: #ccc;
-    --search-bar-text: #333;
-    /* Default sales info (if not highlighted, though we always highlight now) */
-    --sales-info-bg-color: #ecf0f1; 
-    --sales-info-text-color: #7f8c8d;
+    /* Steam-Inspired Dark Theme (Default) */
+    --bg-color-dark: #1b2838; /* Steam dark blue */
+    --bg-secondary-dark: #2a475e; /* Steam slightly lighter blue/grey */
+    --bg-content-dark: #171a21; /* Steam darker content area */
+    --text-color-dark: #c7d5e0; /* Steam light grey/blue text */
+    --text-secondary-dark: #7d909d;
+    --accent-color-dark: #66c0f4; /* Steam bright blue accent */
+    --accent-hover-dark: #4a8db3;
+    --border-color-dark: #2a475e;
+    --highlight-glow-dark: rgba(102, 192, 244, 0.5);
+    --button-active-bg-dark: #4a8db3;
+    --input-bg-dark: #2a3f56;
+    --input-border-dark: #1b2838;
+    --input-text-dark: #c7d5e0;
+    --sales-info-bg-dark: rgba(24, 101, 23, 0.31); /* Subtle green tint */
+    --sales-info-text-dark: #8cc656; /* Steam green-ish */
+    --price-color-dark: #a4d007; /* Steam price green */
+
+    /* Brighter Alternative Theme (Light Mode) */
+    --bg-color-light: #e9eef2;
+    --bg-secondary-light: #ffffff;
+    --bg-content-light: #f8f9fa;
+    --text-color-light: #212529;
+    --text-secondary-light: #5a5a5a;
+    --accent-color-light: #007bff;
+    --accent-hover-light: #0056b3;
+    --border-color-light: #d1d9e0;
+    --highlight-glow-light: rgba(0, 123, 255, 0.4);
+    --button-active-bg-light: #0056b3;
+    --input-bg-light: #ffffff;
+    --input-border-light: #ced4da;
+    --input-text-light: #495057;
+    --sales-info-bg-light: rgba(255, 235, 59, 0.3);
+    --sales-info-text-light: #725c02;
+    --price-color-light: #28a745;
+
+
+    /* Universal Variables */
+    --font-family: 'Noto Sans', sans-serif;
+    --border-radius: 6px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --box-shadow-dark-theme: 0 4px 15px rgba(0, 0, 0, 0.3);
+    --transition-speed: 0.25s;
 }
 
-body.dark-mode {
-    --bg-color: #1a1a1a;
-    --text-color: #e0e0e0;
-    --header-text-color: #ecf0f1;
-    --header-shadow-color: #000;
-    --nav-bg-color: #2c3e50;
-    --content-bg-color: #2b2b2b;
-    --content-shadow-color: rgba(255,255,255,0.05);
-    --section-title-color: #ecf0f1;
-    --about-text-color: #bdc3c7;
-    --game-list-item-bg-color: #3e3e3e;
-    --game-list-item-text-color: #ecf0f1;
-    --game-list-item-hover-bg-color: #555;
-    --game-list-item-border-color: #4a4a4a;
-    --game-list-price-color: #2ecc71; /* For MSRP in the list view */
-    --game-header-image-border-color: #555;
-    --link-color: #5dade2;
-    --description-text-color: #bdc3c7;
-    --price-color: #2ecc71; /* For MSRP in the detail card view in dark mode */
-    --sales-info-bg-color-dark-highlight: rgba(255, 235, 59, 0.25); /* Transparent yellow for dark mode */
-    --sales-info-text-color-dark-highlight: #fff59d; /* Lighter yellow text for dark mode highlight */
-    --back-button-bg-color: #c0392b;
-    --back-button-hover-bg-color: #e74c3c;
-    --footer-text-color: #95a5a6;
-    --dark-mode-toggle-bg: #4e5d6c;
-    --dark-mode-toggle-text: #ecf0f1;
-    --search-bar-bg: #3e3e3e;
-    --search-bar-border: #555;
-    --search-bar-text: #e0e0e0;
-    /* Default sales info (if not highlighted) */
-    --sales-info-bg-color: #3e3e3e; 
-    --sales-info-text-color: #bdc3c7;
-}
-
+/* Initialize with dark theme variables */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font-family);
     margin: 0;
     padding: 0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+    line-height: 1.7;
+    font-size: 16px;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+body.light-mode {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
 }
 
 .container {
-    max-width: 950px;
-    margin: 20px auto;
-    padding: 0 20px;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 25px;
 }
 
 .header-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color-dark);
+}
+body.light-mode .header-bar {
+    border-bottom: 1px solid var(--border-color-light);
 }
 
-.header-bar h1 {
+.site-title {
     margin: 0;
-    color: var(--header-text-color);
-    font-size: 2.5em;
-    text-shadow: 1px 1px 2px var(--header-shadow-color);
-    text-align: left;
+    color: var(--text-color-dark);
+    font-size: 2.8em;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
+body.light-mode .site-title {
+    color: var(--text-color-light);
+    text-shadow: none;
+}
+.site-title .title-accent {
+    color: var(--accent-color-dark);
+}
+body.light-mode .site-title .title-accent {
+    color: var(--accent-color-light);
+}
+
 
 #dark-mode-toggle {
-    background-color: var(--dark-mode-toggle-bg);
-    color: var(--dark-mode-toggle-text);
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
+    background-color: var(--bg-secondary-dark);
+    color: var(--text-color-dark);
+    border: 1px solid var(--border-color-dark);
+    padding: 10px 18px;
+    border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 0.9em;
-    transition: background-color 0.3s ease;
+    font-weight: 700;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-
+body.light-mode #dark-mode-toggle {
+    background-color: var(--bg-secondary-light);
+    color: var(--text-color-light);
+    border: 1px solid var(--border-color-light);
+}
 #dark-mode-toggle:hover {
-    opacity: 0.9;
+    background-color: var(--accent-color-dark);
+    color: var(--bg-content-dark); /* Contrast text on hover */
+}
+body.light-mode #dark-mode-toggle:hover {
+    background-color: var(--accent-color-light);
+    color: #fff;
+}
+#dark-mode-toggle:active {
+    transform: scale(0.96);
+    filter: brightness(0.9);
 }
 
-nav {
-    background-color: var(--nav-bg-color);
-    padding: 10px 0;
-    margin-bottom: 25px;
-    border-radius: 5px;
+.main-nav {
+    background-color: var(--bg-content-dark);
+    padding: 10px;
+    margin-bottom: 30px;
+    border-radius: var(--border-radius);
     text-align: center;
+    box-shadow: var(--box-shadow-dark-theme);
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+body.light-mode .main-nav {
+    background-color: var(--bg-secondary-light);
+    box-shadow: var(--box-shadow);
 }
 
-nav button {
-    background-color: var(--nav-button-bg-color);
-    color: var(--nav-button-text-color);
-    border: none;
-    padding: 10px 20px;
-    margin: 0 10px;
-    border-radius: 5px;
+.nav-button {
+    background-color: transparent;
+    color: var(--text-secondary-dark);
+    border: 2px solid transparent;
+    padding: 12px 25px;
+    border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
+    font-size: 1.05em;
+    font-weight: 700;
+    transition: all var(--transition-speed) ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+body.light-mode .nav-button {
+    color: var(--text-secondary-light);
 }
 
-nav button:hover,
-nav button.active {
-    background-color: var(--nav-button-hover-bg-color);
+.nav-button:hover {
+    color: var(--accent-color-dark);
+    border-color: var(--accent-color-dark);
+    transform: translateY(-2px);
 }
+body.light-mode .nav-button:hover {
+    color: var(--accent-color-light);
+    border-color: var(--accent-color-light);
+}
+
+.nav-button.active {
+    background-color: var(--accent-color-dark);
+    color: var(--bg-content-dark);
+    border-color: var(--accent-color-dark);
+    box-shadow: 0 0 15px var(--highlight-glow-dark);
+}
+body.light-mode .nav-button.active {
+    background-color: var(--accent-color-light);
+    color: #fff;
+    border-color: var(--accent-color-light);
+    box-shadow: 0 0 15px var(--highlight-glow-light);
+}
+.nav-button:active {
+    transform: scale(0.97) translateY(0);
+    filter: brightness(0.9);
+}
+
 
 .content-section {
-    display: none; /* Hidden by default */
-    padding: 20px;
-    background-color: var(--content-bg-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--content-shadow-color);
-    margin-bottom: 20px;
-    animation: fadeInContent 0.5s ease-out;
+    display: none;
+    padding: 25px 30px;
+    background-color: var(--bg-content-dark);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-dark-theme);
+    margin-bottom: 30px;
+    animation: fadeInContent 0.6s ease-out forwards;
 }
-
+body.light-mode .content-section {
+    background-color: var(--bg-content-light);
+    box-shadow: var(--box-shadow);
+}
 .content-section.active {
     display: block;
 }
 
 @keyframes fadeInContent {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 #about-section h2,
-#games-list-section h2,
-#game-detail-section h2 { /* General h2 for sections, game detail will be overridden */
-    color: var(--section-title-color);
-    border-bottom: 2px solid var(--section-title-border-color);
-    padding-bottom: 10px;
+#games-list-section .controls-header h2 {
+    color: var(--text-color-dark);
+    border-bottom: 2px solid var(--accent-color-dark);
+    padding-bottom: 12px;
     margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+body.light-mode #about-section h2,
+body.light-mode #games-list-section .controls-header h2 {
+    color: var(--text-color-light);
+    border-bottom: 2px solid var(--accent-color-light);
 }
 
 #about-section p {
     font-size: 1.1em;
-    color: var(--about-text-color);
+    color: var(--text-secondary-dark);
+    margin-bottom: 15px;
+}
+body.light-mode #about-section p {
+    color: var(--text-secondary-light);
+}
+
+.controls-header {
+    margin-bottom: 20px;
+}
+.filter-sort-controls {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 20px; /* Space between search and sort */
+    align-items: center;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: var(--bg-secondary-dark);
+    border-radius: var(--border-radius);
+}
+body.light-mode .filter-sort-controls {
+    background-color: var(--bg-secondary-light);
+    border: 1px solid var(--border-color-light);
 }
 
 #search-bar {
-    width: calc(100% - 30px); 
-    padding: 10px 15px;
-    margin-bottom: 20px; 
-    border: 1px solid var(--search-bar-border);
-    border-radius: 5px;
+    flex-grow: 1; /* Take available space */
+    padding: 12px 18px;
+    border: 1px solid var(--input-border-dark);
+    border-radius: var(--border-radius);
     font-size: 1em;
-    background-color: var(--search-bar-bg);
-    color: var(--search-bar-text);
-    box-sizing: border-box; 
+    background-color: var(--input-bg-dark);
+    color: var(--input-text-dark);
+    box-sizing: border-box;
+    min-width: 200px; /* Minimum width before wrapping */
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+body.light-mode #search-bar {
+    border: 1px solid var(--input-border-light);
+    background-color: var(--input-bg-light);
+    color: var(--input-text-light);
+}
+#search-bar:focus {
+    outline: none;
+    border-color: var(--accent-color-dark);
+    box-shadow: 0 0 0 3px var(--highlight-glow-dark);
+}
+body.light-mode #search-bar:focus {
+    border-color: var(--accent-color-light);
+    box-shadow: 0 0 0 3px var(--highlight-glow-light);
+}
+
+
+.sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.sort-controls label {
+    font-weight: 700;
+    color: var(--text-secondary-dark);
+}
+body.light-mode .sort-controls label {
+    color: var(--text-secondary-light);
+}
+#sort-select {
+    padding: 12px 15px;
+    border: 1px solid var(--input-border-dark);
+    border-radius: var(--border-radius);
+    background-color: var(--input-bg-dark);
+    color: var(--input-text-dark);
+    font-size: 0.95em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+body.light-mode #sort-select {
+    border: 1px solid var(--input-border-light);
+    background-color: var(--input-bg-light);
+    color: var(--input-text-light);
+}
+#sort-select:focus {
+    outline: none;
+    border-color: var(--accent-color-dark);
+    box-shadow: 0 0 0 3px var(--highlight-glow-dark);
+}
+body.light-mode #sort-select:focus {
+    border-color: var(--accent-color-light);
+    box-shadow: 0 0 0 3px var(--highlight-glow-light);
 }
 
 
 .game-list-container {
     display: flex;
-    flex-direction: column; 
-    gap: 0; 
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border-color-dark);
+    border-radius: var(--border-radius);
+    overflow: hidden; /* To make border-radius work with children */
+    margin-top: 20px;
+}
+body.light-mode .game-list-container {
+    border: 1px solid var(--border-color-light);
 }
 
 .game-list-item {
-    background-color: var(--game-list-item-bg-color);
-    color: var(--game-list-item-text-color);
-    padding: 12px 18px;
-    border-bottom: 1px solid var(--game-list-item-border-color);
+    background-color: var(--bg-content-dark); /* Use content bg for consistency */
+    color: var(--text-color-dark);
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color-dark);
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    font-weight: 500;
+    transition: background-color var(--transition-speed) ease, transform 0.15s ease, box-shadow var(--transition-speed) ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
 }
-
-.game-list-item:first-child {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+body.light-mode .game-list-item {
+    background-color: var(--bg-content-light);
+    color: var(--text-color-light);
+    border-bottom: 1px solid var(--border-color-light);
 }
 
 .game-list-item:last-child {
-    border-bottom: none; 
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-bottom: none;
 }
 
 .game-list-item:hover {
-    background-color: var(--game-list-item-hover-bg-color);
+    background-color: var(--bg-secondary-dark);
+    transform: translateX(5px);
+    box-shadow: inset -5px 0 0 var(--accent-color-dark); /* Left highlight on hover */
+}
+body.light-mode .game-list-item:hover {
+    background-color: var(--bg-secondary-light);
+    box-shadow: inset -5px 0 0 var(--accent-color-light);
 }
 
 .game-list-item .game-name {
-    flex-grow: 1; 
-    margin-right: 10px; 
+    flex-grow: 1;
+    margin-right: 15px;
+    font-size: 1.1em;
 }
-
 .game-list-item .game-msrp {
-    margin-left: 20px; 
-    font-weight: bold;
-    color: var(--game-list-price-color); /* Uses specific variable for list MSRP */
-    white-space: nowrap; 
+    margin-left: 20px;
+    font-weight: 700;
+    color: var(--price-color-dark);
+    white-space: nowrap;
+    font-size: 1.05em;
+}
+body.light-mode .game-list-item .game-msrp {
+    color: var(--price-color-light);
 }
 
-/* Game Detail Card - #game-detail-section .game-card ensures specificity */
-#game-detail-section .game-card {
-    /* No specific background needed here, it's part of .content-section */
-    border-radius: 8px; /* Already on .content-section, can be removed if redundant */
-    padding: 0; /* Padding is on .content-section */
-}
 
-/* 1. Title/Header of the Game (within the detail card) */
-#game-detail-section .game-card h3 {
-    margin-top: 0; /* Overrides general h2 if #game-detail-section h2 exists and is not specific enough */
-    color: var(--game-card-title-color);
-    font-size: 2.2em;  /* Increased font size */
-    text-align: left; /* Left aligned */
-    margin-bottom: 10px; /* Adjusted margin */
-    padding-bottom: 5px; /* Optional: a little space before any potential border */
-    border-bottom: none; /* Ensure no border from general h2 style if not desired */
-}
-
-#game-detail-section .game-card .steam-header-image {
-    width: 100%;
-    max-width: 460px; 
-    height: auto; 
-    border-radius: 6px; 
-    margin-top: 10px; 
-    margin-bottom: 20px; 
-    border: 1px solid var(--game-header-image-border-color);
-    display: block; 
-    margin-left: auto;  
-    margin-right: auto; 
-}
-
-#game-detail-section .game-card p { /* General paragraphs within the game detail card */
-    margin-bottom: 10px; /* Default spacing for paragraphs like Steam links */
-}
-
-#game-detail-section .game-card p > a.game-link,
-#game-detail-section .game-card p > a.reviews-link {
-    color: var(--link-color);
+/* Game Detail Section */
+#game-detail-section .back-to-list-button {
+    background-color: var(--bg-secondary-dark);
+    color: var(--accent-color-dark);
+    border: 1px solid var(--accent-color-dark);
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
     text-decoration: none;
-    font-weight: bold;
-    display: inline-block; /* Allows margin */
-    margin-bottom: 15px; /* More space after these links */
+    margin-bottom: 25px;
+    transition: all var(--transition-speed) ease;
+    cursor: pointer;
+    font-weight: 700;
+    display: inline-flex; /* For icon alignment if added */
+    align-items: center;
+}
+body.light-mode #game-detail-section .back-to-list-button {
+    background-color: var(--bg-secondary-light);
+    color: var(--accent-color-light);
+    border: 1px solid var(--accent-color-light);
+}
+#game-detail-section .back-to-list-button:hover {
+    background-color: var(--accent-color-dark);
+    color: var(--bg-content-dark);
+    box-shadow: 0 0 10px var(--highlight-glow-dark);
+}
+body.light-mode #game-detail-section .back-to-list-button:hover {
+    background-color: var(--accent-color-light);
+    color: #fff;
+    box-shadow: 0 0 10px var(--highlight-glow-light);
+}
+#game-detail-section .back-to-list-button:active {
+    transform: scale(0.97);
+    filter: brightness(0.9);
 }
 
-#game-detail-section .game-card p > a.game-link:hover,
-#game-detail-section .game-card p > a.reviews-link:hover {
+#game-detail-content .game-card {
+    /* .game-card is the direct child of #game-detail-content */
+    padding: 20px; /* Add padding inside the card */
+    border: 1px solid var(--border-color-dark);
+    border-radius: var(--border-radius);
+    background-color: var(--bg-secondary-dark); /* Slightly different from main content bg */
+}
+body.light-mode #game-detail-content .game-card {
+    border: 1px solid var(--border-color-light);
+    background-color: var(--bg-secondary-light);
+}
+
+
+#game-detail-content .game-card h3 { /* Game Title */
+    color: var(--text-color-dark);
+    font-size: 2.6em;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+body.light-mode #game-detail-content .game-card h3 {
+    color: var(--text-color-light);
+}
+
+#game-detail-content .game-card .steam-header-image {
+    width: 100%;
+    max-width: 500px; /* Slightly larger if desired */
+    height: auto;
+    border-radius: var(--border-radius);
+    margin: 0 auto 25px auto; /* Center and add margin */
+    border: 2px solid var(--border-color-dark);
+    display: block;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+body.light-mode #game-detail-content .game-card .steam-header-image {
+    border: 2px solid var(--border-color-light);
+}
+
+
+#game-detail-content .game-card p {
+    margin-bottom: 12px;
+    font-size: 1.05em;
+    color: var(--text-secondary-dark);
+}
+body.light-mode #game-detail-content .game-card p {
+    color: var(--text-secondary-light);
+}
+
+#game-detail-content .game-card p > a.game-link,
+#game-detail-content .game-card p > a.reviews-link {
+    color: var(--accent-color-dark);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color var(--transition-speed) ease, text-shadow 0.2s ease;
+    padding: 3px 0; /* Add a bit of vertical space for the "button" feel */
+}
+body.light-mode #game-detail-content .game-card p > a.game-link,
+body.light-mode #game-detail-content .game-card p > a.reviews-link {
+    color: var(--accent-color-light);
+}
+
+#game-detail-content .game-card p > a.game-link:hover,
+#game-detail-content .game-card p > a.reviews-link:hover {
+    color: var(--accent-hover-dark);
     text-decoration: underline;
+    text-shadow: 0 0 8px var(--highlight-glow-dark);
+}
+body.light-mode #game-detail-content .game-card p > a.game-link:hover,
+body.light-mode #game-detail-content .game-card p > a.reviews-link:hover {
+    color: var(--accent-hover-light);
+    text-shadow: 0 0 8px var(--highlight-glow-light);
 }
 
-#game-detail-section .game-card .description {
-    margin-top: 15px;
-    margin-bottom: 20px; 
-    padding-left: 15px;
-    border-left: 3px solid var(--description-border-color);
-    font-style: italic;
-    color: var(--description-text-color);
+
+#game-detail-content .game-card .description {
+    margin: 25px 0;
+    padding: 20px;
+    border-left: 4px solid var(--accent-color-dark);
+    background-color: var(--bg-content-dark); /* Darker inner box */
+    color: var(--text-color-dark);
+    font-style: normal; /* Overriding previous italic if not desired for all of it */
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
-#game-detail-section .game-card .description p { /* Reset margin for p inside description */
+body.light-mode #game-detail-content .game-card .description {
+    border-left: 4px solid var(--accent-color-light);
+    background-color: var(--bg-content-light);
+    color: var(--text-color-light);
+}
+#game-detail-content .game-card .description p {
+    margin-bottom: 10px;
+    line-height: 1.8;
+    font-size: 1em;
+    color: inherit; /* Inherit from .description */
+}
+#game-detail-content .game-card .description p:last-child {
     margin-bottom: 0;
 }
 
-/* 2. MSRP Information (within the detail card) */
-#game-detail-section .game-card .price { 
-    font-weight: bold;
-    color: var(--price-color); /* Uses general price color variable */
-    font-size: 1.3em; 
-    text-align: right; 
-    margin-top: 20px;  
-    margin-bottom: 5px; 
+
+#game-detail-content .game-card .price { /* MSRP in detail card */
+    font-weight: 700;
+    color: var(--price-color-dark);
+    font-size: 1.6em;
+    text-align: right;
+    margin-top: 25px;
+    margin-bottom: 8px;
+}
+body.light-mode #game-detail-content .game-card .price {
+    color: var(--price-color-light);
 }
 
-/* 3. Sales Info (within the detail card) */
-#game-detail-section .game-card .sales-info {
-    font-size: 0.95em; 
-    font-weight: bold; 
-    padding: 10px 15px; 
-    border-radius: 5px;
-    margin-top: 5px;  
-    margin-bottom: 20px; 
-    text-align: center; 
+#game-detail-content .game-card .sales-info {
+    font-size: 1em;
+    font-weight: 700;
+    padding: 12px 18px;
+    border-radius: var(--border-radius);
+    margin-top: 0px;
+    margin-bottom: 25px;
+    text-align: center;
+    /* Using specific theme variables for highlight */
+}
+body:not(.dark-mode) #game-detail-content .game-card .sales-info {
+    background-color: var(--sales-info-bg-light);
+    color: var(--sales-info-text-light);
+    border: 1px solid rgba(218, 165, 32, 0.4);
+}
+body.dark-mode #game-detail-content .game-card .sales-info {
+    background-color: var(--sales-info-bg-dark);
+    color: var(--sales-info-text-dark);
+    border: 1px solid rgba(93, 156, 83, 0.4);
 }
 
-/* Light Mode Specific Sales Info Highlight */
-body:not(.dark-mode) #game-detail-section .game-card .sales-info {
-    background-color: var(--sales-info-bg-color-light-highlight);
-    color: var(--sales-info-text-color-light-highlight);
-    border: 1px solid rgba(218, 165, 32, 0.4); 
-}
 
-/* Dark Mode Specific Sales Info Highlight */
-body.dark-mode #game-detail-section .game-card .sales-info {
-    background-color: var(--sales-info-bg-color-dark-highlight);
-    color: var(--sales-info-text-color-dark-highlight);
-    border: 1px solid rgba(255, 235, 59, 0.3); 
-}
-
-.back-to-list-button {
-    display: inline-block;
-    background-color: var(--back-button-bg-color);
-    color: var(--nav-button-text-color); 
-    padding: 8px 15px;
-    border-radius: 4px;
-    text-decoration: none;
-    /* margin-top: 15px; Remove if h2 in #game-detail-section is not used for title */
-    margin-bottom: 10px; 
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-    border: none;
-}
-
-.back-to-list-button:hover {
-    background-color: var(--back-button-hover-bg-color);
-}
-
-footer { 
+footer {
     text-align: center;
     margin-top: 40px;
-    padding: 20px;
-    font-size: 0.9em;
-    color: var(--footer-text-color);
+    padding: 30px 20px;
+    font-size: 0.95em;
+    color: var(--text-secondary-dark);
+    border-top: 1px solid var(--border-color-dark);
+}
+body.light-mode footer {
+    color: var(--text-secondary-light);
+    border-top: 1px solid var(--border-color-light);
+}
+
+/* Accessibility: Focus visible styles for keyboard navigation */
+*:focus-visible {
+    outline: 3px solid var(--accent-color-dark);
+    outline-offset: 2px;
+    box-shadow: 0 0 10px var(--highlight-glow-dark);
+}
+body.light-mode *:focus-visible {
+    outline: 3px solid var(--accent-color-light);
+    box-shadow: 0 0 10px var(--highlight-glow-light);
+}
+#search-bar:focus-visible, #sort-select:focus-visible {
+     /* Handled by existing :focus styles, but ensure they are distinct */
 }
