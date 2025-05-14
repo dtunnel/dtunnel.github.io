@@ -22,6 +22,7 @@
             --back-button-bg-color: #e74c3c; --back-button-hover-bg-color: #c0392b;
             --footer-text-color: #7f8c8d; --dark-mode-toggle-bg: #7f8c8d;
             --dark-mode-toggle-text: white;
+            --search-bar-bg: #fff; --search-bar-border: #ccc; --search-bar-text: #333;
         }
         body.dark-mode {
             --bg-color: #1a1a1a; --text-color: #e0e0e0; --header-text-color: #ecf0f1;
@@ -36,6 +37,7 @@
             --sales-info-text-color: #bdc3c7; --back-button-bg-color: #c0392b;
             --back-button-hover-bg-color: #e74c3c; --footer-text-color: #95a5a6;
             --dark-mode-toggle-bg: #4e5d6c; --dark-mode-toggle-text: #ecf0f1;
+            --search-bar-bg: #3e3e3e; --search-bar-border: #555; --search-bar-text: #e0e0e0;
         }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; transition: background-color 0.3s ease, color 0.3s ease; }
         .container { max-width: 950px; margin: 20px auto; padding: 0 20px; }
@@ -52,11 +54,22 @@
         #about-section h2, #games-list-section h2, #game-detail-section h2 { color: var(--section-title-color); border-bottom: 2px solid var(--section-title-border-color); padding-bottom: 10px; margin-top: 0; }
         #about-section p { font-size: 1.1em; color: var(--about-text-color); }
         
-        /* Updated Game List Styles */
+        #search-bar {
+            width: calc(100% - 40px); /* Full width minus padding */
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border: 1px solid var(--search-bar-border);
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: var(--search-bar-bg);
+            color: var(--search-bar-text);
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+
         .game-list-container {
             display: flex;
-            flex-direction: column; /* Stack items vertically */
-            gap: 0; /* Remove gap, use borders for separation */
+            flex-direction: column;
+            gap: 0;
         }
         .game-list-item {
             background-color: var(--game-list-item-bg-color);
@@ -65,9 +78,9 @@
             border-bottom: 1px solid var(--game-list-item-border-color);
             cursor: pointer;
             transition: background-color 0.2s ease, color 0.2s ease;
-            display: flex; /* For aligning name and price */
-            justify-content: space-between; /* Push name and price apart */
-            align-items: center; /* Vertically align */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-weight: 500;
         }
         .game-list-item:first-child {
@@ -75,22 +88,21 @@
             border-top-right-radius: 5px;
         }
         .game-list-item:last-child {
-            border-bottom: none; /* No border for the last item */
+            border-bottom: none;
             border-bottom-left-radius: 5px;
             border-bottom-right-radius: 5px;
         }
         .game-list-item:hover {
             background-color: var(--game-list-item-hover-bg-color);
-            /* color: var(--nav-button-text-color); Optional: change text color on hover */
         }
         .game-list-item .game-name {
-            flex-grow: 1; /* Allow game name to take available space */
+            flex-grow: 1;
         }
         .game-list-item .game-msrp {
-            margin-left: 20px; /* Space between name and price */
+            margin-left: 20px;
             font-weight: bold;
             color: var(--game-list-price-color);
-            white-space: nowrap; /* Prevent price from wrapping */
+            white-space: nowrap;
         }
 
         .game-card { background-color: var(--content-bg-color); border-radius: 8px; padding: 0; }
@@ -100,7 +112,7 @@
         .game-card .game-link:hover, .game-card .reviews-link:hover { text-decoration: underline; }
         .game-card p { margin-bottom: 10px; }
         .game-card .description { margin-top: 15px; margin-bottom: 15px; padding-left: 15px; border-left: 3px solid var(--description-border-color); font-style: italic; color: var(--description-text-color); }
-        .game-card .price { font-weight: bold; color: var(--price-color); font-size: 1.2em; } /* This is for the price in the detail card */
+        .game-card .price { font-weight: bold; color: var(--price-color); font-size: 1.2em; }
         .game-card .sales-info { font-size: 0.9em; color: var(--sales-info-text-color); background-color: var(--sales-info-bg-color); padding: 8px; border-radius: 4px; margin-top: 10px; margin-bottom: 10px; }
         .back-to-list-button { display: inline-block; background-color: var(--back-button-bg-color); color: var(--nav-button-text-color); padding: 8px 15px; border-radius: 4px; text-decoration: none; margin-top: 15px; margin-bottom: 10px; transition: background-color 0.3s ease; cursor: pointer; border: none; }
         .back-to-list-button:hover { background-color: var(--back-button-hover-bg-color); }
@@ -126,6 +138,7 @@
             </section>
             <section id="games-list-section" class="content-section">
                 <h2>All Games</h2>
+                <input type="text" id="search-bar" placeholder="Search games by name...">
                 <div class="game-list-container" id="game-list-container"></div>
             </section>
             <section id="game-detail-section" class="content-section">
@@ -148,6 +161,7 @@
         const navGamesButton = document.getElementById('nav-games');
         const backToListButton = document.getElementById('back-to-list');
         const darkModeToggleButton = document.getElementById('dark-mode-toggle');
+        const searchBar = document.getElementById('search-bar'); // Get the search bar
 
         function setDarkMode(isDark) {
             if (isDark) {
@@ -188,7 +202,6 @@
             const steamImageUrl = appId ? `https://cdn.akamai.steamstatic.com/steam/apps/${appId}/header.jpg` : '';
             const imageHtml = appId ? `<img src="${steamImageUrl}" alt="${game.name} Header Image" class="steam-header-image">` : '<p><em>(Header image not available)</em></p>';
             
-            // The game.description from Python already has <br> tags
             gameDetailContent.innerHTML = `
                 <div class="game-card">
                     ${imageHtml}
@@ -202,32 +215,53 @@
             showSection(gameDetailSection);
             window.scrollTo({ top: gameDetailSection.offsetTop - 20, behavior: 'smooth' });
         }
-        function populateGameList() {
+
+        function filterAndPopulateGameList() {
+            const searchTerm = searchBar.value.toLowerCase();
             gameListContainer.innerHTML = ''; // Clear existing list
-            gamesData.forEach(game => {
-                const gameItem = document.createElement('div');
-                gameItem.classList.add('game-list-item');
-                
-                const gameNameSpan = document.createElement('span');
-                gameNameSpan.classList.add('game-name');
-                gameNameSpan.textContent = game.name;
-                
-                const gameMsrpSpan = document.createElement('span');
-                gameMsrpSpan.classList.add('game-msrp');
-                gameMsrpSpan.textContent = game.price; // Using the 'price' field from game data
-                
-                gameItem.appendChild(gameNameSpan);
-                gameItem.appendChild(gameMsrpSpan);
-                
-                gameItem.addEventListener('click', () => displayGameDetails(game));
-                gameListContainer.appendChild(gameItem);
+            
+            const filteredGames = gamesData.filter(game => {
+                return game.name.toLowerCase().startsWith(searchTerm); // Filter by name starting with searchTerm
             });
+
+            if (filteredGames.length === 0 && searchTerm) {
+                gameListContainer.innerHTML = '<p style="text-align:center; padding: 20px; color: var(--about-text-color);">No games found matching your search.</p>';
+            } else {
+                 filteredGames.forEach(game => {
+                    const gameItem = document.createElement('div');
+                    gameItem.classList.add('game-list-item');
+                    
+                    const gameNameSpan = document.createElement('span');
+                    gameNameSpan.classList.add('game-name');
+                    gameNameSpan.textContent = game.name;
+                    
+                    const gameMsrpSpan = document.createElement('span');
+                    gameMsrpSpan.classList.add('game-msrp');
+                    gameMsrpSpan.textContent = game.price;
+                    
+                    gameItem.appendChild(gameNameSpan);
+                    gameItem.appendChild(gameMsrpSpan);
+                    
+                    gameItem.addEventListener('click', () => displayGameDetails(game));
+                    gameListContainer.appendChild(gameItem);
+                });
+            }
         }
+
         navAboutButton.addEventListener('click', () => showSection(aboutSection));
-        navGamesButton.addEventListener('click', () => { populateGameList(); showSection(gamesListSection); });
+        navGamesButton.addEventListener('click', () => {
+            searchBar.value = ''; // Clear search bar when navigating to games list
+            filterAndPopulateGameList(); // Populate with full list
+            showSection(gamesListSection);
+        });
         backToListButton.addEventListener('click', () => showSection(gamesListSection));
+        
+        searchBar.addEventListener('input', filterAndPopulateGameList); // Filter on each input
+
+        // Initial setup
         showSection(aboutSection);
-        populateGameList();
+        filterAndPopulateGameList(); // Populate the list initially (will be empty if search is empty)
+
     </script>
 </body>
 </html>
