@@ -3,12 +3,12 @@
 
 :root {
     /* Steam-Inspired Dark Theme (Default) */
-    --bg-color-dark: #1b2838; /* Steam dark blue */
-    --bg-secondary-dark: #2a475e; /* Steam slightly lighter blue/grey */
-    --bg-content-dark: #171a21; /* Steam darker content area */
-    --text-color-dark: #c7d5e0; /* Steam light grey/blue text */
+    --bg-color-dark: #1b2838; /* Steam dark blue - This will be the base for the animation */
+    --bg-secondary-dark: #2a475e; 
+    --bg-content-dark: #171a21; 
+    --text-color-dark: #c7d5e0; 
     --text-secondary-dark: #7d909d;
-    --accent-color-dark: #66c0f4; /* Steam bright blue accent */
+    --accent-color-dark: #66c0f4; 
     --accent-hover-dark: #4a8db3;
     --border-color-dark: #2a475e;
     --highlight-glow-dark: rgba(102, 192, 244, 0.5);
@@ -16,12 +16,12 @@
     --input-bg-dark: #2a3f56;
     --input-border-dark: #1b2838;
     --input-text-dark: #c7d5e0;
-    --sales-info-bg-dark: rgba(24, 101, 23, 0.31); /* Subtle green tint */
-    --sales-info-text-dark: #8cc656; /* Steam green-ish */
-    --price-color-dark: #a4d007; /* Steam price green */
+    --sales-info-bg-dark: rgba(24, 101, 23, 0.31); 
+    --sales-info-text-dark: #8cc656; 
+    --price-color-dark: #a4d007; 
 
     /* Brighter Alternative Theme (Light Mode) */
-    --bg-color-light: #e9eef2;
+    --bg-color-light: #e9eef2; /* Base for light mode animation */
     --bg-secondary-light: #ffffff;
     --bg-content-light: #f8f9fa;
     --text-color-light: #212529;
@@ -38,13 +38,16 @@
     --sales-info-text-light: #725c02;
     --price-color-light: #28a745;
 
-
     /* Universal Variables */
     --font-family: 'Noto Sans', sans-serif;
     --border-radius: 6px;
     --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     --box-shadow-dark-theme: 0 4px 15px rgba(0, 0, 0, 0.3);
     --transition-speed: 0.25s;
+
+    /* Animated Background Particle Colors */
+    --particle-color-dark: rgba(102, 192, 244, 0.1); /* Faint Steam blue */
+    --particle-color-light: rgba(0, 123, 255, 0.08); /* Faint accent blue for light */
 }
 
 /* Initialize with dark theme variables */
@@ -52,24 +55,91 @@ body {
     font-family: var(--font-family);
     margin: 0;
     padding: 0;
-    background-color: var(--bg-color-dark);
+    background-color: var(--bg-color-dark); /* Base color */
     color: var(--text-color-dark);
     line-height: 1.7;
     font-size: 16px;
     transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
-    -webkit-font-smoothing: antialiased; /* Smoother fonts on some displays */
+    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden; /* Prevent horizontal scroll from pseudo-elements */
+
+    /* --- Animated Background --- */
+    position: relative; /* Needed for z-index of pseudo-elements */
 }
+
+/* Create pseudo-elements for particles */
+body::before, body::after {
+    content: '';
+    position: fixed; /* Fixed so they don't scroll with content */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place them behind the content */
+    pointer-events: none; /* Make them non-interactive */
+}
+
+body::before { /* First layer of particles */
+    background-image:
+        radial-gradient(var(--particle-color-dark) 1px, transparent 1px),
+        radial-gradient(var(--particle-color-dark) 1px, transparent 1px);
+    background-size: 40px 40px, 60px 60px; /* Different sizes for variation */
+    background-position: 0 0, 30px 30px;
+    animation: moveParticles1 120s linear infinite;
+}
+
+body::after { /* Second layer of particles - slightly different */
+    background-image:
+        radial-gradient(var(--particle-color-dark) 0.5px, transparent 0.5px), /* Smaller particles */
+        radial-gradient(var(--particle-color-dark) 0.5px, transparent 0.5px);
+    background-size: 30px 30px, 50px 50px;
+    background-position: 15px 15px, 40px 40px;
+    animation: moveParticles2 150s linear infinite alternate; /* Different speed and direction */
+}
+
+/* Light Mode Particle Colors */
+body.light-mode::before {
+    background-image:
+        radial-gradient(var(--particle-color-light) 1px, transparent 1px),
+        radial-gradient(var(--particle-color-light) 1px, transparent 1px);
+}
+body.light-mode::after {
+    background-image:
+        radial-gradient(var(--particle-color-light) 0.5px, transparent 0.5px),
+        radial-gradient(var(--particle-color-light) 0.5px, transparent 0.5px);
+}
+
+
+/* Keyframe animations for particles */
+@keyframes moveParticles1 {
+    0% { background-position: 0 0, 30px 30px; }
+    100% { background-position: 400px 400px, 430px 330px; } /* Move them across a large area */
+}
+
+@keyframes moveParticles2 {
+    0% { background-position: 15px 15px, 40px 40px; }
+    100% { background-position: -385px -385px, -360px 440px; } /* Move in different directions */
+}
+
 
 body.light-mode {
     background-color: var(--bg-color-light);
     color: var(--text-color-light);
 }
 
+/* --- ALL OTHER CSS STYLES FROM YOUR PREVIOUS VERSION GO HERE --- */
+/* (Container, header-bar, site-title, dark-mode-toggle, main-nav, nav-button, etc.) */
+/* I will paste the rest of the CSS below for completeness. Ensure the ::before and ::after for body are at the top of body styling */
+
 .container {
     max-width: 1000px;
     margin: 20px auto; 
     padding: 0 20px; 
+    position: relative; /* Ensure content is above the fixed background pseudo-elements */
+    z-index: 1;
 }
 
 .header-bar {
@@ -206,6 +276,8 @@ body.light-mode .nav-button.active {
     box-shadow: var(--box-shadow-dark-theme);
     margin-bottom: 25px; 
     animation: fadeInContent 0.6s ease-out forwards;
+    position: relative; /* Ensure content sections are above the ::before/::after of body */
+    z-index: 1;
 }
 body.light-mode .content-section {
     background-color: var(--bg-content-light);
@@ -440,7 +512,7 @@ body.light-mode #game-detail-content .game-card {
 }
 
 
-#game-detail-content .game-card h3 { /* Game Title */
+#game-detail-content .game-card h3 { 
     color: var(--text-color-dark);
     font-size: 2.2em; 
     text-align: left;
@@ -530,7 +602,7 @@ body.light-mode #game-detail-content .game-card .description {
 }
 
 
-#game-detail-content .game-card .price { /* MSRP in detail card */
+#game-detail-content .game-card .price { 
     font-weight: 700;
     color: var(--price-color-dark);
     font-size: 1.4em; 
@@ -570,6 +642,8 @@ footer {
     font-size: 0.9em; 
     color: var(--text-secondary-dark);
     border-top: 1px solid var(--border-color-dark);
+    position: relative; /* Ensure footer is above the fixed background pseudo-elements */
+    z-index: 1;
 }
 body.light-mode footer {
     color: var(--text-secondary-light);
@@ -672,20 +746,20 @@ body.light-mode *:focus-visible {
     .game-list-item {
         padding: 10px 12px; 
         flex-direction: column; 
-        align-items: stretch;  /* CORRECTED: Make children stretch */
-        gap: 4px; /* Small gap between name and price */
+        align-items: stretch;  
+        gap: 4px; 
     }
     .game-list-item .game-name {
         font-size: 1em;
         margin-right: 0;
-        text-align: left; /* Ensure game name is left-aligned */
-        width: 100%; /* Take full width */
+        text-align: left; 
+        width: 100%; 
     }
     .game-list-item .game-msrp {
         font-size: 0.9em;
         margin-left: 0; 
-        text-align: right; /* Align MSRP text to the right within its block */
-        width: 100%; /* Take full width */
+        text-align: right; 
+        width: 100%; 
     }
     .game-list-item:hover {
         transform: translateX(3px); 
@@ -733,7 +807,7 @@ body.light-mode *:focus-visible {
         padding: 12px;
     }
      #game-detail-content .game-card .description p {
-        font-size: 1em; /* Reset/Ensure readability */
+        font-size: 1em; 
         line-height: 1.6;
     }
 
@@ -775,7 +849,7 @@ body.light-mode *:focus-visible {
         font-size: 1.1em;
     }
     #game-detail-content .game-card .sales-info,
-    #game-detail-content .game-card .description p { /* Applied to p within description for consistency */
+    #game-detail-content .game-card .description p { 
         font-size: 0.9em;
     }
 }
