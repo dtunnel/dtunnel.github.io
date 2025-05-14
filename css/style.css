@@ -68,16 +68,16 @@ body.light-mode {
 
 .container {
     max-width: 1000px;
-    margin: 20px auto; /* Reduced top/bottom margin for mobile later */
-    padding: 0 20px; /* Reduced default horizontal padding for mobile later */
+    margin: 20px auto; 
+    padding: 0 20px; 
 }
 
 .header-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px; /* Reduced margin */
-    padding-bottom: 15px; /* Reduced padding */
+    margin-bottom: 25px; 
+    padding-bottom: 15px; 
     border-bottom: 1px solid var(--border-color-dark);
 }
 body.light-mode .header-bar {
@@ -87,12 +87,10 @@ body.light-mode .header-bar {
 .site-title {
     margin: 0;
     color: var(--text-color-dark);
-<<<<<< refactor
-    font-size: 2.6em; /* Slightly reduced default */
+    font-size: 2.6em; 
     font-weight: 700;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-    line-height: 1.1; /* Tighter line height for large text */
- main
+    line-height: 1.1; 
 }
 body.light-mode .site-title {
     color: var(--text-color-light);
@@ -110,16 +108,16 @@ body.light-mode .site-title .title-accent {
     background-color: var(--bg-secondary-dark);
     color: var(--text-color-dark);
     border: 1px solid var(--border-color-dark);
-    padding: 8px 15px; /* Slightly smaller */
+    padding: 8px 15px; 
     border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 0.85em; /* Slightly smaller */
+    font-size: 0.85em; 
     font-weight: 700;
     transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform 0.1s ease;
     display: flex;
     align-items: center;
-    gap: 6px; /* Reduced gap */
-    white-space: nowrap; /* Prevent text wrapping */
+    gap: 6px; 
+    white-space: nowrap; 
 }
 body.light-mode #dark-mode-toggle {
     background-color: var(--bg-secondary-light);
@@ -128,7 +126,7 @@ body.light-mode #dark-mode-toggle {
 }
 #dark-mode-toggle:hover {
     background-color: var(--accent-color-dark);
-    color: var(--bg-content-dark);
+    color: var(--bg-content-dark); 
 }
 body.light-mode #dark-mode-toggle:hover {
     background-color: var(--accent-color-light);
@@ -141,14 +139,14 @@ body.light-mode #dark-mode-toggle:hover {
 
 .main-nav {
     background-color: var(--bg-content-dark);
-    padding: 8px; /* Reduced padding */
-    margin-bottom: 25px; /* Reduced margin */
+    padding: 8px; 
+    margin-bottom: 25px; 
     border-radius: var(--border-radius);
     text-align: center;
     box-shadow: var(--box-shadow-dark-theme);
     display: flex;
     justify-content: center;
-    gap: 10px; /* Reduced gap */
+    gap: 10px; 
 }
 body.light-mode .main-nav {
     background-color: var(--bg-secondary-light);
@@ -159,10 +157,10 @@ body.light-mode .main-nav {
     background-color: transparent;
     color: var(--text-secondary-dark);
     border: 2px solid transparent;
-    padding: 10px 20px; /* Adjusted padding */
+    padding: 10px 20px; 
     border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 1em; /* Adjusted font size */
+    font-size: 1em; 
     font-weight: 700;
     transition: all var(--transition-speed) ease;
     text-transform: uppercase;
@@ -202,11 +200,11 @@ body.light-mode .nav-button.active {
 
 .content-section {
     display: none;
-    padding: 20px; /* Reduced padding */
+    padding: 20px; 
     background-color: var(--bg-content-dark);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow-dark-theme);
-    margin-bottom: 25px; /* Reduced margin */
+    margin-bottom: 25px; 
     animation: fadeInContent 0.6s ease-out forwards;
 }
 body.light-mode .content-section {
@@ -226,10 +224,10 @@ body.light-mode .content-section {
 #games-list-section .controls-header h2 {
     color: var(--text-color-dark);
     border-bottom: 2px solid var(--accent-color-dark);
-    padding-bottom: 10px; /* Reduced padding */
+    padding-bottom: 10px; 
     margin-top: 0;
-    margin-bottom: 20px; /* Reduced margin */
-    font-size: 1.7em; /* Slightly reduced */
+    margin-bottom: 20px; 
+    font-size: 1.7em; 
 }
 body.light-mode #about-section h2,
 body.light-mode #games-list-section .controls-header h2 {
@@ -238,24 +236,24 @@ body.light-mode #games-list-section .controls-header h2 {
 }
 
 #about-section p {
-    font-size: 1.05em; /* Slightly reduced */
+    font-size: 1.05em; 
     color: var(--text-secondary-dark);
-    margin-bottom: 12px; /* Reduced margin */
+    margin-bottom: 12px; 
 }
 body.light-mode #about-section p {
     color: var(--text-secondary-light);
 }
 
 .controls-header {
-    margin-bottom: 15px; /* Reduced margin */
+    margin-bottom: 15px; 
 }
 .filter-sort-controls {
     display: flex;
     flex-wrap: wrap; 
-    gap: 15px; /* Reduced gap */
+    gap: 15px; 
     align-items: center;
-    margin-top: 10px; /* Reduced margin */
-    padding: 12px; /* Reduced padding */
+    margin-top: 10px; 
+    padding: 12px; 
     background-color: var(--bg-secondary-dark);
     border-radius: var(--border-radius);
 }
@@ -266,10 +264,10 @@ body.light-mode .filter-sort-controls {
 
 #search-bar {
     flex-grow: 1; 
-    padding: 10px 15px; /* Adjusted padding */
+    padding: 10px 15px; 
     border: 1px solid var(--input-border-dark);
     border-radius: var(--border-radius);
-    font-size: 0.95em; /* Slightly smaller */
+    font-size: 0.95em; 
     background-color: var(--input-bg-dark);
     color: var(--input-text-dark);
     box-sizing: border-box;
@@ -295,23 +293,23 @@ body.light-mode #search-bar:focus {
 .sort-controls {
     display: flex;
     align-items: center;
-    gap: 8px; /* Reduced gap */
+    gap: 8px; 
 }
 .sort-controls label {
     font-weight: 700;
     color: var(--text-secondary-dark);
-    font-size: 0.9em; /* Smaller label */
+    font-size: 0.9em; 
 }
 body.light-mode .sort-controls label {
     color: var(--text-secondary-light);
 }
 #sort-select {
-    padding: 10px 12px; /* Adjusted padding */
+    padding: 10px 12px; 
     border: 1px solid var(--input-border-dark);
     border-radius: var(--border-radius);
     background-color: var(--input-bg-dark);
     color: var(--input-text-dark);
-    font-size: 0.9em; /* Smaller select */
+    font-size: 0.9em; 
     font-weight: 700;
     cursor: pointer;
     transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
@@ -339,7 +337,7 @@ body.light-mode #sort-select:focus {
     border: 1px solid var(--border-color-dark);
     border-radius: var(--border-radius);
     overflow: hidden; 
-    margin-top: 15px; /* Reduced margin */
+    margin-top: 15px; 
 }
 body.light-mode .game-list-container {
     border: 1px solid var(--border-color-light);
@@ -348,7 +346,7 @@ body.light-mode .game-list-container {
 .game-list-item {
     background-color: var(--bg-content-dark); 
     color: var(--text-color-dark);
-    padding: 12px 15px; /* Adjusted padding */
+    padding: 12px 15px; 
     border-bottom: 1px solid var(--border-color-dark);
     cursor: pointer;
     transition: background-color var(--transition-speed) ease, transform 0.15s ease, box-shadow var(--transition-speed) ease;
@@ -380,14 +378,14 @@ body.light-mode .game-list-item:hover {
 .game-list-item .game-name {
     flex-grow: 1;
     margin-right: 10px; 
-    font-size: 1.05em; /* Slightly adjusted */
+    font-size: 1.05em; 
 }
 .game-list-item .game-msrp {
-    margin-left: 15px; /* Reduced margin */
+    margin-left: 15px; 
     font-weight: 700;
     color: var(--price-color-dark);
     white-space: nowrap;
-    font-size: 1em; /* Slightly adjusted */
+    font-size: 1em; 
 }
 body.light-mode .game-list-item .game-msrp {
     color: var(--price-color-light);
@@ -399,14 +397,14 @@ body.light-mode .game-list-item .game-msrp {
     background-color: var(--bg-secondary-dark);
     color: var(--accent-color-dark);
     border: 1px solid var(--accent-color-dark);
-    padding: 8px 18px; /* Adjusted */
+    padding: 8px 18px; 
     border-radius: var(--border-radius);
     text-decoration: none;
-    margin-bottom: 20px; /* Adjusted */
+    margin-bottom: 20px; 
     transition: all var(--transition-speed) ease;
     cursor: pointer;
     font-weight: 700;
-    font-size: 0.95em; /* Slightly smaller */
+    font-size: 0.95em; 
     display: inline-flex; 
     align-items: center;
 }
@@ -431,7 +429,7 @@ body.light-mode #game-detail-section .back-to-list-button:hover {
 }
 
 #game-detail-content .game-card {
-    padding: 15px; /* Reduced padding */
+    padding: 15px; 
     border: 1px solid var(--border-color-dark);
     border-radius: var(--border-radius);
     background-color: var(--bg-secondary-dark); 
@@ -444,10 +442,10 @@ body.light-mode #game-detail-content .game-card {
 
 #game-detail-content .game-card h3 { /* Game Title */
     color: var(--text-color-dark);
-    font-size: 2.2em; /* MODIFIED: Was 2.6em, reducing for general, will increase for desktop */
+    font-size: 2.2em; 
     text-align: left;
     margin-top: 0;
-    margin-bottom: 12px; /* Reduced */
+    margin-bottom: 12px; 
     font-weight: 700;
     line-height: 1.2;
 }
@@ -457,10 +455,10 @@ body.light-mode #game-detail-content .game-card h3 {
 
 #game-detail-content .game-card .steam-header-image {
     width: 100%;
-    max-width: 460px; /* MODIFIED: Was 500px, ensuring it fits smaller cards well */
+    max-width: 460px; 
     height: auto;
     border-radius: var(--border-radius);
-    margin: 0 auto 20px auto; /* Reduced bottom margin */
+    margin: 0 auto 20px auto; 
     border: 2px solid var(--border-color-dark);
     display: block;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -471,8 +469,8 @@ body.light-mode #game-detail-content .game-card .steam-header-image {
 
 
 #game-detail-content .game-card p {
-    margin-bottom: 10px; /* Reduced */
-    font-size: 1em; /* MODIFIED: Was 1.05em */
+    margin-bottom: 10px; 
+    font-size: 1em; 
     color: var(--text-secondary-dark);
 }
 body.light-mode #game-detail-content .game-card p {
@@ -485,9 +483,9 @@ body.light-mode #game-detail-content .game-card p {
     text-decoration: none;
     font-weight: 700;
     transition: color var(--transition-speed) ease, text-shadow 0.2s ease;
-    padding: 2px 0; /* Reduced */
-    display: block; /* Make links block for better tap targets on mobile */
-    margin-bottom: 10px; /* Spacing between block links */
+    padding: 2px 0; 
+    display: block; 
+    margin-bottom: 10px; 
 }
 body.light-mode #game-detail-content .game-card p > a.game-link,
 body.light-mode #game-detail-content .game-card p > a.reviews-link {
@@ -508,8 +506,8 @@ body.light-mode #game-detail-content .game-card p > a.reviews-link:hover {
 
 
 #game-detail-content .game-card .description {
-    margin: 20px 0; /* Reduced margin */
-    padding: 15px;   /* Reduced padding */
+    margin: 20px 0; 
+    padding: 15px;   
     border-left: 4px solid var(--accent-color-dark);
     background-color: var(--bg-content-dark); 
     color: var(--text-color-dark);
@@ -522,9 +520,9 @@ body.light-mode #game-detail-content .game-card .description {
     color: var(--text-color-light);
 }
 #game-detail-content .game-card .description p {
-    margin-bottom: 8px; /* Reduced margin */
-    line-height: 1.7; /* Slightly reduced for smaller text */
-    font-size: 0.95em; /* Slightly reduced */
+    margin-bottom: 8px; 
+    line-height: 1.7; 
+    font-size: 0.95em; 
     color: inherit; 
 }
 #game-detail-content .game-card .description p:last-child {
@@ -535,22 +533,22 @@ body.light-mode #game-detail-content .game-card .description {
 #game-detail-content .game-card .price { /* MSRP in detail card */
     font-weight: 700;
     color: var(--price-color-dark);
-    font-size: 1.4em; /* MODIFIED: Was 1.6em */
+    font-size: 1.4em; 
     text-align: right;
-    margin-top: 20px; /* Reduced margin */
-    margin-bottom: 6px; /* Reduced margin */
+    margin-top: 20px; 
+    margin-bottom: 6px; 
 }
 body.light-mode #game-detail-content .game-card .price {
     color: var(--price-color-light);
 }
 
 #game-detail-content .game-card .sales-info {
-    font-size: 0.95em; /* MODIFIED: Was 1em */
+    font-size: 0.95em; 
     font-weight: 700;
-    padding: 10px 15px; /* Adjusted padding */
+    padding: 10px 15px; 
     border-radius: var(--border-radius);
     margin-top: 0px;
-    margin-bottom: 20px; /* Reduced margin */
+    margin-bottom: 20px; 
     text-align: center;
 }
 body:not(.dark-mode) #game-detail-content .game-card .sales-info {
@@ -567,9 +565,9 @@ body.dark-mode #game-detail-content .game-card .sales-info {
 
 footer { 
     text-align: center;
-    margin-top: 30px; /* Reduced margin */
-    padding: 25px 15px; /* Adjusted padding */
-    font-size: 0.9em; /* Slightly reduced */
+    margin-top: 30px; 
+    padding: 25px 15px; 
+    font-size: 0.9em; 
     color: var(--text-secondary-dark);
     border-top: 1px solid var(--border-color-dark);
 }
@@ -592,25 +590,25 @@ body.light-mode *:focus-visible {
 /* --- MOBILE RESPONSIVE STYLES --- */
 @media (max-width: 768px) {
     body {
-        font-size: 15px; /* Slightly smaller base font for mobile */
+        font-size: 15px; 
     }
 
     .container {
         margin-top: 15px;
         margin-bottom: 15px;
-        padding: 0 15px; /* Less horizontal padding */
+        padding: 0 15px; 
     }
 
     .header-bar {
-        flex-direction: column; /* Stack title and toggle */
+        flex-direction: column; 
         gap: 15px;
         margin-bottom: 20px;
         padding-bottom: 15px;
     }
 
     .site-title {
-        font-size: 2em; /* Significantly smaller title on mobile */
-        text-align: center; /* Center title on mobile */
+        font-size: 2em; 
+        text-align: center; 
     }
 
     #dark-mode-toggle {
@@ -619,7 +617,7 @@ body.light-mode *:focus-visible {
     }
 
     .main-nav {
-        flex-direction: column; /* Stack nav buttons */
+        flex-direction: column; 
         gap: 8px;
         padding: 10px;
         margin-bottom: 20px;
@@ -631,13 +629,13 @@ body.light-mode *:focus-visible {
     }
 
     .content-section {
-        padding: 15px; /* Less padding in content sections */
+        padding: 15px; 
         margin-bottom: 20px;
     }
 
     #about-section h2,
     #games-list-section .controls-header h2 {
-        font-size: 1.5em; /* Smaller section titles */
+        font-size: 1.5em; 
         margin-bottom: 15px;
         padding-bottom: 8px;
     }
@@ -647,20 +645,20 @@ body.light-mode *:focus-visible {
     }
 
     .filter-sort-controls {
-        flex-direction: column; /* Stack search and sort */
+        flex-direction: column; 
         gap: 15px;
         padding: 10px;
     }
 
     #search-bar {
-        width: 100%; /* Full width for search bar */
+        width: 100%; 
         padding: 10px;
         font-size: 0.9em;
     }
 
     .sort-controls {
         width: 100%;
-        justify-content: space-between; /* Space out label and select */
+        justify-content: space-between; 
     }
     .sort-controls label {
         font-size: 0.85em;
@@ -668,26 +666,29 @@ body.light-mode *:focus-visible {
     #sort-select {
         padding: 10px;
         font-size: 0.85em;
-        flex-grow: 1; /* Allow select to take more space */
+        flex-grow: 1; 
     }
 
     .game-list-item {
-        padding: 10px 12px; /* Smaller padding in list items */
-        flex-direction: column; /* Stack name and price on mobile */
-        align-items: flex-start; /* Align items to the start */
-        gap: 5px;
+        padding: 10px 12px; 
+        flex-direction: column; 
+        align-items: stretch;  /* CORRECTED: Make children stretch */
+        gap: 4px; /* Small gap between name and price */
     }
     .game-list-item .game-name {
         font-size: 1em;
         margin-right: 0;
+        text-align: left; /* Ensure game name is left-aligned */
+        width: 100%; /* Take full width */
     }
     .game-list-item .game-msrp {
         font-size: 0.9em;
-        margin-left: 0; /* No left margin when stacked */
-        align-self: flex-end; /* Push price to the end of the stacked item */
+        margin-left: 0; 
+        text-align: right; /* Align MSRP text to the right within its block */
+        width: 100%; /* Take full width */
     }
     .game-list-item:hover {
-        transform: translateX(3px); /* Less pronounced hover effect */
+        transform: translateX(3px); 
         box-shadow: inset -3px 0 0 var(--accent-color-dark);
     }
      body.light-mode .game-list-item:hover {
@@ -704,22 +705,22 @@ body.light-mode *:focus-visible {
     }
     
     #game-detail-content .game-card {
-        padding: 15px; /* Less padding in the card */
+        padding: 15px; 
     }
 
-    #game-detail-content .game-card h3 { /* Game Title on Mobile */
-        font-size: 1.8em; /* Smaller title */
+    #game-detail-content .game-card h3 { 
+        font-size: 1.8em; 
         margin-bottom: 10px;
         line-height: 1.3;
     }
 
     #game-detail-content .game-card .steam-header-image {
         margin-bottom: 15px;
-        max-width: 100%; /* Allow image to be full width of its container */
+        max-width: 100%; 
     }
     
     #game-detail-content .game-card p {
-        font-size: 0.95em; /* Slightly smaller text */
+        font-size: 0.95em; 
     }
     #game-detail-content .game-card p > a.game-link,
     #game-detail-content .game-card p > a.reviews-link {
@@ -730,22 +731,21 @@ body.light-mode *:focus-visible {
     #game-detail-content .game-card .description {
         margin: 15px 0;
         padding: 12px;
-        font-size: 0.9em; /* Smaller description text */
     }
      #game-detail-content .game-card .description p {
-        font-size: 1em; /* Reset to base for readability within description */
+        font-size: 1em; /* Reset/Ensure readability */
         line-height: 1.6;
     }
 
 
-    #game-detail-content .game-card .price { /* MSRP on Mobile */
-        font-size: 1.2em; /* Smaller MSRP */
-        text-align: right; /* Keep right aligned or change to left if preferred */
+    #game-detail-content .game-card .price { 
+        font-size: 1.2em; 
+        text-align: right; 
         margin-top: 15px;
     }
 
     #game-detail-content .game-card .sales-info {
-        font-size: 0.9em; /* Smaller sales info text */
+        font-size: 0.9em; 
         padding: 8px 12px;
         margin-bottom: 15px;
     }
@@ -759,7 +759,7 @@ body.light-mode *:focus-visible {
 
 @media (max-width: 480px) {
     .site-title {
-        font-size: 1.7em; /* Even smaller for very small screens */
+        font-size: 1.7em; 
     }
     .nav-button {
         font-size: 0.9em;
@@ -775,7 +775,7 @@ body.light-mode *:focus-visible {
         font-size: 1.1em;
     }
     #game-detail-content .game-card .sales-info,
-    #game-detail-content .game-card .description p {
+    #game-detail-content .game-card .description p { /* Applied to p within description for consistency */
         font-size: 0.9em;
     }
 }
