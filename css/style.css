@@ -18,15 +18,15 @@
     --game-list-item-text-color: #2c3e50;
     --game-list-item-hover-bg-color: #bdc3c7;
     --game-list-item-border-color: #dde1e2;
-    --game-list-price-color: #27ae60;
+    --game-list-price-color: #27ae60; /* For MSRP in the list view */
     --game-card-title-color: #3498db;
     --game-header-image-border-color: #ddd;
     --link-color: #2980b9;
     --description-border-color: #3498db;
     --description-text-color: #555;
-    --price-color: #27ae60; /* For the detail card MSRP */
-    --sales-info-bg-color: #ecf0f1;
-    --sales-info-text-color: #7f8c8d;
+    --price-color: #27ae60; /* For MSRP in the detail card view */
+    --sales-info-bg-color-light-highlight: rgba(255, 235, 59, 0.3); /* Transparent yellow for light mode */
+    --sales-info-text-color-light-highlight: #514501; /* Darker yellow/brown text for light mode highlight */
     --back-button-bg-color: #e74c3c;
     --back-button-hover-bg-color: #c0392b;
     --footer-text-color: #7f8c8d;
@@ -35,6 +35,9 @@
     --search-bar-bg: #fff;
     --search-bar-border: #ccc;
     --search-bar-text: #333;
+    /* Default sales info (if not highlighted, though we always highlight now) */
+    --sales-info-bg-color: #ecf0f1; 
+    --sales-info-text-color: #7f8c8d;
 }
 
 body.dark-mode {
@@ -51,13 +54,13 @@ body.dark-mode {
     --game-list-item-text-color: #ecf0f1;
     --game-list-item-hover-bg-color: #555;
     --game-list-item-border-color: #4a4a4a;
-    --game-list-price-color: #2ecc71;
+    --game-list-price-color: #2ecc71; /* For MSRP in the list view */
     --game-header-image-border-color: #555;
     --link-color: #5dade2;
     --description-text-color: #bdc3c7;
-    --price-color: #2ecc71; /* For the detail card MSRP in dark mode */
-    --sales-info-bg-color: #3e3e3e;
-    --sales-info-text-color: #bdc3c7;
+    --price-color: #2ecc71; /* For MSRP in the detail card view in dark mode */
+    --sales-info-bg-color-dark-highlight: rgba(255, 235, 59, 0.25); /* Transparent yellow for dark mode */
+    --sales-info-text-color-dark-highlight: #fff59d; /* Lighter yellow text for dark mode highlight */
     --back-button-bg-color: #c0392b;
     --back-button-hover-bg-color: #e74c3c;
     --footer-text-color: #95a5a6;
@@ -66,6 +69,9 @@ body.dark-mode {
     --search-bar-bg: #3e3e3e;
     --search-bar-border: #555;
     --search-bar-text: #e0e0e0;
+    /* Default sales info (if not highlighted) */
+    --sales-info-bg-color: #3e3e3e; 
+    --sales-info-text-color: #bdc3c7;
 }
 
 body {
@@ -160,7 +166,7 @@ nav button.active {
 
 #about-section h2,
 #games-list-section h2,
-#game-detail-section h2 {
+#game-detail-section h2 { /* General h2 for sections, game detail will be overridden */
     color: var(--section-title-color);
     border-bottom: 2px solid var(--section-title-border-color);
     padding-bottom: 10px;
@@ -173,22 +179,22 @@ nav button.active {
 }
 
 #search-bar {
-    width: calc(100% - 30px); /* Adjusted to better fit common padding */
+    width: calc(100% - 30px); 
     padding: 10px 15px;
-    margin-bottom: 20px; /* Space between search bar and list */
+    margin-bottom: 20px; 
     border: 1px solid var(--search-bar-border);
     border-radius: 5px;
     font-size: 1em;
     background-color: var(--search-bar-bg);
     color: var(--search-bar-text);
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    box-sizing: border-box; 
 }
 
 
 .game-list-container {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    gap: 0; /* Remove gap, use borders for separation */
+    flex-direction: column; 
+    gap: 0; 
 }
 
 .game-list-item {
@@ -198,9 +204,9 @@ nav button.active {
     border-bottom: 1px solid var(--game-list-item-border-color);
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease;
-    display: flex; /* For aligning name and price */
-    justify-content: space-between; /* Push name and price apart */
-    align-items: center; /* Vertically align */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
     font-weight: 500;
 }
 
@@ -210,7 +216,7 @@ nav button.active {
 }
 
 .game-list-item:last-child {
-    border-bottom: none; /* No border for the last item */
+    border-bottom: none; 
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -220,87 +226,111 @@ nav button.active {
 }
 
 .game-list-item .game-name {
-    flex-grow: 1; /* Allow game name to take available space */
-    margin-right: 10px; /* Ensure some space if name is very long */
+    flex-grow: 1; 
+    margin-right: 10px; 
 }
 
 .game-list-item .game-msrp {
-    margin-left: 20px; /* Space between name and price */
+    margin-left: 20px; 
     font-weight: bold;
-    color: var(--game-list-price-color);
-    white-space: nowrap; /* Prevent price from wrapping */
+    color: var(--game-list-price-color); /* Uses specific variable for list MSRP */
+    white-space: nowrap; 
 }
 
-.game-card {
-    background-color: var(--content-bg-color); 
-    border-radius: 8px;
-    padding: 0; 
+/* Game Detail Card - #game-detail-section .game-card ensures specificity */
+#game-detail-section .game-card {
+    /* No specific background needed here, it's part of .content-section */
+    border-radius: 8px; /* Already on .content-section, can be removed if redundant */
+    padding: 0; /* Padding is on .content-section */
 }
 
-.game-card .steam-header-image {
+/* 1. Title/Header of the Game (within the detail card) */
+#game-detail-section .game-card h3 {
+    margin-top: 0; /* Overrides general h2 if #game-detail-section h2 exists and is not specific enough */
+    color: var(--game-card-title-color);
+    font-size: 2.2em;  /* Increased font size */
+    text-align: left; /* Left aligned */
+    margin-bottom: 10px; /* Adjusted margin */
+    padding-bottom: 5px; /* Optional: a little space before any potential border */
+    border-bottom: none; /* Ensure no border from general h2 style if not desired */
+}
+
+#game-detail-section .game-card .steam-header-image {
     width: 100%;
     max-width: 460px; 
     height: auto; 
     border-radius: 6px; 
-    margin-bottom: 15px;
+    margin-top: 10px; 
+    margin-bottom: 20px; 
     border: 1px solid var(--game-header-image-border-color);
     display: block; 
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: auto;  
+    margin-right: auto; 
 }
 
-.game-card h3 {
-    margin-top: 0;
-    color: var(--game-card-title-color);
-    font-size: 1.8em;
-    text-align: center;
-    margin-bottom: 15px; 
+#game-detail-section .game-card p { /* General paragraphs within the game detail card */
+    margin-bottom: 10px; /* Default spacing for paragraphs like Steam links */
 }
 
-.game-card .game-link,
-.game-card .reviews-link {
+#game-detail-section .game-card p > a.game-link,
+#game-detail-section .game-card p > a.reviews-link {
     color: var(--link-color);
     text-decoration: none;
     font-weight: bold;
+    display: inline-block; /* Allows margin */
+    margin-bottom: 15px; /* More space after these links */
 }
 
-.game-card .game-link:hover,
-.game-card .reviews-link:hover {
+#game-detail-section .game-card p > a.game-link:hover,
+#game-detail-section .game-card p > a.reviews-link:hover {
     text-decoration: underline;
 }
 
-.game-card p { 
-    margin-bottom: 10px;
-}
-
-.game-card .description {
+#game-detail-section .game-card .description {
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 20px; 
     padding-left: 15px;
     border-left: 3px solid var(--description-border-color);
     font-style: italic;
     color: var(--description-text-color);
 }
-
-.game-card .description p {
+#game-detail-section .game-card .description p { /* Reset margin for p inside description */
     margin-bottom: 0;
 }
 
-
-.game-card .price { 
+/* 2. MSRP Information (within the detail card) */
+#game-detail-section .game-card .price { 
     font-weight: bold;
-    color: var(--price-color);
-    font-size: 1.2em;
+    color: var(--price-color); /* Uses general price color variable */
+    font-size: 1.3em; 
+    text-align: right; 
+    margin-top: 20px;  
+    margin-bottom: 5px; 
 }
 
-.game-card .sales-info {
-    font-size: 0.9em;
-    color: var(--sales-info-text-color);
-    background-color: var(--sales-info-bg-color);
-    padding: 8px;
-    border-radius: 4px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+/* 3. Sales Info (within the detail card) */
+#game-detail-section .game-card .sales-info {
+    font-size: 0.95em; 
+    font-weight: bold; 
+    padding: 10px 15px; 
+    border-radius: 5px;
+    margin-top: 5px;  
+    margin-bottom: 20px; 
+    text-align: center; 
+}
+
+/* Light Mode Specific Sales Info Highlight */
+body:not(.dark-mode) #game-detail-section .game-card .sales-info {
+    background-color: var(--sales-info-bg-color-light-highlight);
+    color: var(--sales-info-text-color-light-highlight);
+    border: 1px solid rgba(218, 165, 32, 0.4); 
+}
+
+/* Dark Mode Specific Sales Info Highlight */
+body.dark-mode #game-detail-section .game-card .sales-info {
+    background-color: var(--sales-info-bg-color-dark-highlight);
+    color: var(--sales-info-text-color-dark-highlight);
+    border: 1px solid rgba(255, 235, 59, 0.3); 
 }
 
 .back-to-list-button {
@@ -310,7 +340,7 @@ nav button.active {
     padding: 8px 15px;
     border-radius: 4px;
     text-decoration: none;
-    margin-top: 0; /* Adjust if it's not the very first element after h2 in its section */
+    /* margin-top: 15px; Remove if h2 in #game-detail-section is not used for title */
     margin-bottom: 10px; 
     transition: background-color 0.3s ease;
     cursor: pointer;
@@ -321,7 +351,7 @@ nav button.active {
     background-color: var(--back-button-hover-bg-color);
 }
 
-footer { /* Renamed from .footer-text to footer for the element */
+footer { 
     text-align: center;
     margin-top: 40px;
     padding: 20px;
