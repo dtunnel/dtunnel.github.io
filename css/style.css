@@ -46,8 +46,6 @@
     --box-shadow-dark-theme: 0 4px 15px rgba(0, 0, 0, 0.3);
     --transition-speed: 0.25s;
 }
-
-/* Initialize with dark theme variables */
 body {
     font-family: var(--font-family);
     margin: 0;
