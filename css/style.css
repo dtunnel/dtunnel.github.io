@@ -4,11 +4,11 @@
 :root {
     /* Steam-Inspired Dark Theme (Default) */
     --bg-color-dark: #1b2838; /* Steam dark blue - This will be the base for the animation */
-    --bg-secondary-dark: #2a475e; 
-    --bg-content-dark: #171a21; 
-    --text-color-dark: #c7d5e0; 
+    --bg-secondary-dark: #2a475e;
+    --bg-content-dark: #171a21;
+    --text-color-dark: #c7d5e0;
     --text-secondary-dark: #7d909d;
-    --accent-color-dark: #66c0f4; 
+    --accent-color-dark: #66c0f4;
     --accent-hover-dark: #4a8db3;
     --border-color-dark: #2a475e;
     --highlight-glow-dark: rgba(102, 192, 244, 0.5);
@@ -16,9 +16,9 @@
     --input-bg-dark: #2a3f56;
     --input-border-dark: #1b2838;
     --input-text-dark: #c7d5e0;
-    --sales-info-bg-dark: rgba(24, 101, 23, 0.31); 
-    --sales-info-text-dark: #8cc656; 
-    --price-color-dark: #a4d007; 
+    --sales-info-bg-dark: rgba(24, 101, 23, 0.31);
+    --sales-info-text-dark: #8cc656;
+    --price-color-dark: #a4d007;
 
     /* Brighter Alternative Theme (Light Mode) */
     --bg-color-light: #e9eef2; /* Base for light mode animation */
@@ -130,14 +130,10 @@ body.light-mode {
     color: var(--text-color-light);
 }
 
-/* --- ALL OTHER CSS STYLES FROM YOUR PREVIOUS VERSION GO HERE --- */
-/* (Container, header-bar, site-title, dark-mode-toggle, main-nav, nav-button, etc.) */
-/* I will paste the rest of the CSS below for completeness. Ensure the ::before and ::after for body are at the top of body styling */
-
 .container {
     max-width: 1000px;
-    margin: 20px auto; 
-    padding: 0 20px; 
+    margin: 20px auto;
+    padding: 0 20px;
     position: relative; /* Ensure content is above the fixed background pseudo-elements */
     z-index: 1;
 }
@@ -146,8 +142,8 @@ body.light-mode {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px; 
-    padding-bottom: 15px; 
+    margin-bottom: 25px;
+    padding-bottom: 15px;
     border-bottom: 1px solid var(--border-color-dark);
 }
 body.light-mode .header-bar {
@@ -157,10 +153,10 @@ body.light-mode .header-bar {
 .site-title {
     margin: 0;
     color: var(--text-color-dark);
-    font-size: 2.6em; 
+    font-size: 2.6em;
     font-weight: 700;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-    line-height: 1.1; 
+    line-height: 1.1;
 }
 body.light-mode .site-title {
     color: var(--text-color-light);
@@ -178,16 +174,16 @@ body.light-mode .site-title .title-accent {
     background-color: var(--bg-secondary-dark);
     color: var(--text-color-dark);
     border: 1px solid var(--border-color-dark);
-    padding: 8px 15px; 
+    padding: 8px 15px;
     border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 0.85em; 
+    font-size: 0.85em;
     font-weight: 700;
     transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform 0.1s ease;
     display: flex;
     align-items: center;
-    gap: 6px; 
-    white-space: nowrap; 
+    gap: 6px;
+    white-space: nowrap;
 }
 body.light-mode #dark-mode-toggle {
     background-color: var(--bg-secondary-light);
@@ -196,7 +192,7 @@ body.light-mode #dark-mode-toggle {
 }
 #dark-mode-toggle:hover {
     background-color: var(--accent-color-dark);
-    color: var(--bg-content-dark); 
+    color: var(--bg-content-dark);
 }
 body.light-mode #dark-mode-toggle:hover {
     background-color: var(--accent-color-light);
@@ -209,14 +205,14 @@ body.light-mode #dark-mode-toggle:hover {
 
 .main-nav {
     background-color: var(--bg-content-dark);
-    padding: 8px; 
-    margin-bottom: 25px; 
+    padding: 8px;
+    margin-bottom: 25px;
     border-radius: var(--border-radius);
     text-align: center;
     box-shadow: var(--box-shadow-dark-theme);
     display: flex;
     justify-content: center;
-    gap: 10px; 
+    gap: 10px;
 }
 body.light-mode .main-nav {
     background-color: var(--bg-secondary-light);
@@ -227,10 +223,10 @@ body.light-mode .main-nav {
     background-color: transparent;
     color: var(--text-secondary-dark);
     border: 2px solid transparent;
-    padding: 10px 20px; 
+    padding: 10px 20px;
     border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 1em; 
+    font-size: 1em;
     font-weight: 700;
     transition: all var(--transition-speed) ease;
     text-transform: uppercase;
@@ -270,11 +266,11 @@ body.light-mode .nav-button.active {
 
 .content-section {
     display: none;
-    padding: 20px; 
+    padding: 20px;
     background-color: var(--bg-content-dark);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow-dark-theme);
-    margin-bottom: 25px; 
+    margin-bottom: 25px;
     animation: fadeInContent 0.6s ease-out forwards;
     position: relative; /* Ensure content sections are above the ::before/::after of body */
     z-index: 1;
@@ -296,10 +292,10 @@ body.light-mode .content-section {
 #games-list-section .controls-header h2 {
     color: var(--text-color-dark);
     border-bottom: 2px solid var(--accent-color-dark);
-    padding-bottom: 10px; 
+    padding-bottom: 10px;
     margin-top: 0;
-    margin-bottom: 20px; 
-    font-size: 1.7em; 
+    margin-bottom: 10px; /* Reduced margin to accommodate stats */
+    font-size: 1.7em;
 }
 body.light-mode #about-section h2,
 body.light-mode #games-list-section .controls-header h2 {
@@ -308,24 +304,41 @@ body.light-mode #games-list-section .controls-header h2 {
 }
 
 #about-section p {
-    font-size: 1.05em; 
+    font-size: 1.05em;
     color: var(--text-secondary-dark);
-    margin-bottom: 12px; 
+    margin-bottom: 12px;
 }
 body.light-mode #about-section p {
     color: var(--text-secondary-light);
 }
 
 .controls-header {
-    margin-bottom: 15px; 
+    margin-bottom: 15px;
 }
+
+/* Game List Statistics Styling */
+.game-list-statistics {
+    font-size: 0.9em;
+    color: var(--text-secondary-dark);
+    margin-top: 5px; /* Space below the h2 */
+    margin-bottom: 15px; /* Space above filter controls */
+    text-align: left;
+    padding: 5px 0;
+}
+
+body.light-mode .game-list-statistics {
+    color: var(--text-secondary-light);
+}
+/* End Game List Statistics Styling */
+
+
 .filter-sort-controls {
     display: flex;
-    flex-wrap: wrap; 
-    gap: 15px; 
+    flex-wrap: wrap;
+    gap: 15px;
     align-items: center;
-    margin-top: 10px; 
-    padding: 12px; 
+    /* margin-top: 10px; Removed, as stats provide spacing */
+    padding: 12px;
     background-color: var(--bg-secondary-dark);
     border-radius: var(--border-radius);
 }
@@ -335,15 +348,15 @@ body.light-mode .filter-sort-controls {
 }
 
 #search-bar {
-    flex-grow: 1; 
-    padding: 10px 15px; 
+    flex-grow: 1;
+    padding: 10px 15px;
     border: 1px solid var(--input-border-dark);
     border-radius: var(--border-radius);
-    font-size: 0.95em; 
+    font-size: 0.95em;
     background-color: var(--input-bg-dark);
     color: var(--input-text-dark);
     box-sizing: border-box;
-    min-width: 180px; 
+    min-width: 180px;
     transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
 }
 body.light-mode #search-bar {
@@ -365,23 +378,23 @@ body.light-mode #search-bar:focus {
 .sort-controls {
     display: flex;
     align-items: center;
-    gap: 8px; 
+    gap: 8px;
 }
 .sort-controls label {
     font-weight: 700;
     color: var(--text-secondary-dark);
-    font-size: 0.9em; 
+    font-size: 0.9em;
 }
 body.light-mode .sort-controls label {
     color: var(--text-secondary-light);
 }
 #sort-select {
-    padding: 10px 12px; 
+    padding: 10px 12px;
     border: 1px solid var(--input-border-dark);
     border-radius: var(--border-radius);
     background-color: var(--input-bg-dark);
     color: var(--input-text-dark);
-    font-size: 0.9em; 
+    font-size: 0.9em;
     font-weight: 700;
     cursor: pointer;
     transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
@@ -408,17 +421,17 @@ body.light-mode #sort-select:focus {
     gap: 0;
     border: 1px solid var(--border-color-dark);
     border-radius: var(--border-radius);
-    overflow: hidden; 
-    margin-top: 15px; 
+    overflow: hidden;
+    margin-top: 15px;
 }
 body.light-mode .game-list-container {
     border: 1px solid var(--border-color-light);
 }
 
 .game-list-item {
-    background-color: var(--bg-content-dark); 
+    background-color: var(--bg-content-dark);
     color: var(--text-color-dark);
-    padding: 12px 15px; 
+    padding: 12px 15px;
     border-bottom: 1px solid var(--border-color-dark);
     cursor: pointer;
     transition: background-color var(--transition-speed) ease, transform 0.15s ease, box-shadow var(--transition-speed) ease;
@@ -440,7 +453,7 @@ body.light-mode .game-list-item {
 .game-list-item:hover {
     background-color: var(--bg-secondary-dark);
     transform: translateX(5px);
-    box-shadow: inset -5px 0 0 var(--accent-color-dark); 
+    box-shadow: inset -5px 0 0 var(--accent-color-dark);
 }
 body.light-mode .game-list-item:hover {
     background-color: var(--bg-secondary-light);
@@ -449,15 +462,15 @@ body.light-mode .game-list-item:hover {
 
 .game-list-item .game-name {
     flex-grow: 1;
-    margin-right: 10px; 
-    font-size: 1.05em; 
+    margin-right: 10px;
+    font-size: 1.05em;
 }
 .game-list-item .game-msrp {
-    margin-left: 15px; 
+    margin-left: 15px;
     font-weight: 700;
     color: var(--price-color-dark);
     white-space: nowrap;
-    font-size: 1em; 
+    font-size: 1em;
 }
 body.light-mode .game-list-item .game-msrp {
     color: var(--price-color-light);
@@ -469,15 +482,15 @@ body.light-mode .game-list-item .game-msrp {
     background-color: var(--bg-secondary-dark);
     color: var(--accent-color-dark);
     border: 1px solid var(--accent-color-dark);
-    padding: 8px 18px; 
+    padding: 8px 18px;
     border-radius: var(--border-radius);
     text-decoration: none;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
     transition: all var(--transition-speed) ease;
     cursor: pointer;
     font-weight: 700;
-    font-size: 0.95em; 
-    display: inline-flex; 
+    font-size: 0.95em;
+    display: inline-flex;
     align-items: center;
 }
 body.light-mode #game-detail-section .back-to-list-button {
@@ -501,10 +514,10 @@ body.light-mode #game-detail-section .back-to-list-button:hover {
 }
 
 #game-detail-content .game-card {
-    padding: 15px; 
+    padding: 15px;
     border: 1px solid var(--border-color-dark);
     border-radius: var(--border-radius);
-    background-color: var(--bg-secondary-dark); 
+    background-color: var(--bg-secondary-dark);
 }
 body.light-mode #game-detail-content .game-card {
     border: 1px solid var(--border-color-light);
@@ -512,12 +525,12 @@ body.light-mode #game-detail-content .game-card {
 }
 
 
-#game-detail-content .game-card h3 { 
+#game-detail-content .game-card h3 {
     color: var(--text-color-dark);
-    font-size: 2.2em; 
+    font-size: 2.2em;
     text-align: left;
     margin-top: 0;
-    margin-bottom: 12px; 
+    margin-bottom: 12px;
     font-weight: 700;
     line-height: 1.2;
 }
@@ -527,10 +540,10 @@ body.light-mode #game-detail-content .game-card h3 {
 
 #game-detail-content .game-card .steam-header-image {
     width: 100%;
-    max-width: 460px; 
+    max-width: 460px;
     height: auto;
     border-radius: var(--border-radius);
-    margin: 0 auto 20px auto; 
+    margin: 0 auto 20px auto;
     border: 2px solid var(--border-color-dark);
     display: block;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -541,8 +554,8 @@ body.light-mode #game-detail-content .game-card .steam-header-image {
 
 
 #game-detail-content .game-card p {
-    margin-bottom: 10px; 
-    font-size: 1em; 
+    margin-bottom: 10px;
+    font-size: 1em;
     color: var(--text-secondary-dark);
 }
 body.light-mode #game-detail-content .game-card p {
@@ -555,9 +568,9 @@ body.light-mode #game-detail-content .game-card p {
     text-decoration: none;
     font-weight: 700;
     transition: color var(--transition-speed) ease, text-shadow 0.2s ease;
-    padding: 2px 0; 
-    display: block; 
-    margin-bottom: 10px; 
+    padding: 2px 0;
+    display: block;
+    margin-bottom: 10px;
 }
 body.light-mode #game-detail-content .game-card p > a.game-link,
 body.light-mode #game-detail-content .game-card p > a.reviews-link {
@@ -578,12 +591,12 @@ body.light-mode #game-detail-content .game-card p > a.reviews-link:hover {
 
 
 #game-detail-content .game-card .description {
-    margin: 20px 0; 
-    padding: 15px;   
+    margin: 20px 0;
+    padding: 15px;
     border-left: 4px solid var(--accent-color-dark);
-    background-color: var(--bg-content-dark); 
+    background-color: var(--bg-content-dark);
     color: var(--text-color-dark);
-    font-style: normal; 
+    font-style: normal;
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
 body.light-mode #game-detail-content .game-card .description {
@@ -592,38 +605,38 @@ body.light-mode #game-detail-content .game-card .description {
     color: var(--text-color-light);
 }
 #game-detail-content .game-card .description p {
-    margin-bottom: 8px; 
-    line-height: 1.7; 
-    font-size: 0.95em; 
-    color: inherit; 
+    margin-bottom: 8px;
+    line-height: 1.7;
+    font-size: 0.95em;
+    color: inherit;
 }
 #game-detail-content .game-card .description p:last-child {
     margin-bottom: 0;
 }
 
 
-#game-detail-content .game-card .price { 
+#game-detail-content .game-card .price {
     font-weight: 700;
     color: var(--price-color-dark);
-    font-size: 1.4em; 
+    font-size: 1.4em;
     text-align: right;
-    margin-top: 20px; 
-    margin-bottom: 6px; 
+    margin-top: 20px;
+    margin-bottom: 6px;
 }
 body.light-mode #game-detail-content .game-card .price {
     color: var(--price-color-light);
 }
 
 #game-detail-content .game-card .sales-info {
-    font-size: 0.95em; 
+    font-size: 0.95em;
     font-weight: 700;
-    padding: 10px 15px; 
+    padding: 10px 15px;
     border-radius: var(--border-radius);
     margin-top: 0px;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
     text-align: center;
 }
-body:not(.dark-mode) #game-detail-content .game-card .sales-info {
+body:not(.dark-mode) #game-detail-content .game-card .sales-info { /* For light mode */
     background-color: var(--sales-info-bg-light);
     color: var(--sales-info-text-light);
     border: 1px solid rgba(218, 165, 32, 0.4);
@@ -635,11 +648,11 @@ body.dark-mode #game-detail-content .game-card .sales-info {
 }
 
 
-footer { 
+footer {
     text-align: center;
-    margin-top: 30px; 
-    padding: 25px 15px; 
-    font-size: 0.9em; 
+    margin-top: 30px;
+    padding: 25px 15px;
+    font-size: 0.9em;
     color: var(--text-secondary-dark);
     border-top: 1px solid var(--border-color-dark);
     position: relative; /* Ensure footer is above the fixed background pseudo-elements */
@@ -664,25 +677,25 @@ body.light-mode *:focus-visible {
 /* --- MOBILE RESPONSIVE STYLES --- */
 @media (max-width: 768px) {
     body {
-        font-size: 15px; 
+        font-size: 15px;
     }
 
     .container {
         margin-top: 15px;
         margin-bottom: 15px;
-        padding: 0 15px; 
+        padding: 0 15px;
     }
 
     .header-bar {
-        flex-direction: column; 
+        flex-direction: column;
         gap: 15px;
         margin-bottom: 20px;
         padding-bottom: 15px;
     }
 
     .site-title {
-        font-size: 2em; 
-        text-align: center; 
+        font-size: 2em;
+        text-align: center;
     }
 
     #dark-mode-toggle {
@@ -691,7 +704,7 @@ body.light-mode *:focus-visible {
     }
 
     .main-nav {
-        flex-direction: column; 
+        flex-direction: column;
         gap: 8px;
         padding: 10px;
         margin-bottom: 20px;
@@ -703,36 +716,42 @@ body.light-mode *:focus-visible {
     }
 
     .content-section {
-        padding: 15px; 
+        padding: 15px;
         margin-bottom: 20px;
     }
 
     #about-section h2,
     #games-list-section .controls-header h2 {
-        font-size: 1.5em; 
-        margin-bottom: 15px;
+        font-size: 1.5em;
+        margin-bottom: 10px; /* Adjusted for stats */
         padding-bottom: 8px;
     }
-    
+
+    .game-list-statistics {
+        text-align: center; /* Center stats on mobile */
+        margin-top: 5px;   /* Space below h2 */
+        margin-bottom: 10px; /* Space above filter controls */
+    }
+
     #about-section p {
         font-size: 1em;
     }
 
     .filter-sort-controls {
-        flex-direction: column; 
+        flex-direction: column;
         gap: 15px;
         padding: 10px;
     }
 
     #search-bar {
-        width: 100%; 
+        width: 100%;
         padding: 10px;
         font-size: 0.9em;
     }
 
     .sort-controls {
         width: 100%;
-        justify-content: space-between; 
+        justify-content: space-between;
     }
     .sort-controls label {
         font-size: 0.85em;
@@ -740,29 +759,29 @@ body.light-mode *:focus-visible {
     #sort-select {
         padding: 10px;
         font-size: 0.85em;
-        flex-grow: 1; 
+        flex-grow: 1;
     }
 
     .game-list-item {
-        padding: 10px 12px; 
-        flex-direction: column; 
-        align-items: stretch;  
-        gap: 4px; 
+        padding: 10px 12px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
     }
     .game-list-item .game-name {
         font-size: 1em;
         margin-right: 0;
-        text-align: left; 
-        width: 100%; 
+        text-align: left;
+        width: 100%;
     }
     .game-list-item .game-msrp {
         font-size: 0.9em;
-        margin-left: 0; 
-        text-align: right; 
-        width: 100%; 
+        margin-left: 0;
+        text-align: right;
+        width: 100%;
     }
     .game-list-item:hover {
-        transform: translateX(3px); 
+        transform: translateX(3px);
         box-shadow: inset -3px 0 0 var(--accent-color-dark);
     }
      body.light-mode .game-list-item:hover {
@@ -777,24 +796,24 @@ body.light-mode *:focus-visible {
         font-size: 0.9em;
         margin-bottom: 15px;
     }
-    
+
     #game-detail-content .game-card {
-        padding: 15px; 
+        padding: 15px;
     }
 
-    #game-detail-content .game-card h3 { 
-        font-size: 1.8em; 
+    #game-detail-content .game-card h3 {
+        font-size: 1.8em;
         margin-bottom: 10px;
         line-height: 1.3;
     }
 
     #game-detail-content .game-card .steam-header-image {
         margin-bottom: 15px;
-        max-width: 100%; 
+        max-width: 100%;
     }
-    
+
     #game-detail-content .game-card p {
-        font-size: 0.95em; 
+        font-size: 0.95em;
     }
     #game-detail-content .game-card p > a.game-link,
     #game-detail-content .game-card p > a.reviews-link {
@@ -807,19 +826,19 @@ body.light-mode *:focus-visible {
         padding: 12px;
     }
      #game-detail-content .game-card .description p {
-        font-size: 1em; 
+        font-size: 1em; /* Was 1em already, kept for consistency */
         line-height: 1.6;
     }
 
 
-    #game-detail-content .game-card .price { 
-        font-size: 1.2em; 
-        text-align: right; 
+    #game-detail-content .game-card .price {
+        font-size: 1.2em;
+        text-align: right;
         margin-top: 15px;
     }
 
     #game-detail-content .game-card .sales-info {
-        font-size: 0.9em; 
+        font-size: 0.9em;
         padding: 8px 12px;
         margin-bottom: 15px;
     }
@@ -833,7 +852,7 @@ body.light-mode *:focus-visible {
 
 @media (max-width: 480px) {
     .site-title {
-        font-size: 1.7em; 
+        font-size: 1.7em;
     }
     .nav-button {
         font-size: 0.9em;
@@ -849,7 +868,153 @@ body.light-mode *:focus-visible {
         font-size: 1.1em;
     }
     #game-detail-content .game-card .sales-info,
-    #game-detail-content .game-card .description p { 
+    #game-detail-content .game-card .description p {
         font-size: 0.9em;
+    }
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+    margin-top: 20px;
+    gap: 10px;
+    border-top: 1px solid var(--border-color-dark);
+}
+
+body.light-mode .pagination-container {
+    border-top: 1px solid var(--border-color-light);
+}
+
+.pagination-button {
+    background-color: var(--bg-secondary-dark);
+    color: var(--text-color-dark);
+    border: 1px solid var(--border-color-dark);
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 700;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+body.light-mode .pagination-button {
+    background-color: var(--bg-secondary-light);
+    color: var(--text-color-light);
+    border: 1px solid var(--border-color-light);
+}
+
+.pagination-button:hover:not(:disabled) {
+    background-color: var(--accent-color-dark);
+    color: var(--bg-content-dark);
+}
+
+body.light-mode .pagination-button:hover:not(:disabled) {
+    background-color: var(--accent-color-light);
+    color: #fff;
+}
+
+.pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    font-size: 0.9em;
+    color: var(--text-secondary-dark);
+    margin: 0 10px;
+}
+
+body.light-mode .pagination-info {
+    color: var(--text-secondary-light);
+}
+
+
+/* Responsive adjustments for pagination */
+@media (max-width: 480px) {
+    .pagination-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .pagination-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.filter-sort-controls {
+    display: flex;
+    flex-wrap: wrap; /* Ensure controls can wrap */
+    gap: 15px;
+    align-items: center;
+    padding: 12px;
+    background-color: var(--bg-secondary-dark);
+    border-radius: var(--border-radius);
+}
+body.light-mode .filter-sort-controls {
+    background-color: var(--bg-secondary-light);
+    border: 1px solid var(--border-color-light);
+}
+
+/* ... (search-bar and sort-controls styles remain the same) ... */
+
+.items-per-page-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.items-per-page-controls label {
+    font-weight: 700;
+    color: var(--text-secondary-dark);
+    font-size: 0.9em;
+}
+body.light-mode .items-per-page-controls label {
+    color: var(--text-secondary-light);
+}
+
+#items-per-page-select {
+    padding: 10px 12px;
+    border: 1px solid var(--input-border-dark);
+    border-radius: var(--border-radius);
+    background-color: var(--input-bg-dark);
+    color: var(--input-text-dark);
+    font-size: 0.9em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+body.light-mode #items-per-page-select {
+    border: 1px solid var(--input-border-light);
+    background-color: var(--input-bg-light);
+    color: var(--input-text-light);
+}
+#items-per-page-select:focus {
+    outline: none;
+    border-color: var(--accent-color-dark);
+    box-shadow: 0 0 0 3px var(--highlight-glow-dark);
+}
+body.light-mode #items-per-page-select:focus {
+    border-color: var(--accent-color-light);
+    box-shadow: 0 0 0 3px var(--highlight-glow-light);
+}
+
+
+/* Responsive adjustment for controls header */
+@media (max-width: 768px) {
+    .filter-sort-controls {
+        flex-direction: column; /* Stack all controls on smaller screens */
+        align-items: stretch; /* Make controls take full width */
+    }
+    #search-bar {
+        width: 100%; /* Ensure search bar takes full width available */
+    }
+    .sort-controls, .items-per-page-controls {
+        width: 100%;
+        justify-content: space-between; /* Distribute label and select */
+    }
+    #sort-select, #items-per-page-select {
+        flex-grow: 1; /* Allow select to take remaining space */
     }
 }

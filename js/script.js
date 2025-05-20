@@ -13,28 +13,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const darkModeToggleButton = document.getElementById('dark-mode-toggle');
     const searchBar = document.getElementById('search-bar');
     const sortSelect = document.getElementById('sort-select');
+    const gameListStats = document.getElementById('game-list-stats');
+    const paginationControlsContainer = document.getElementById('pagination-controls');
+    const itemsPerPageSelect = document.getElementById('items-per-page-select');
 
     let allGamesData = [];
-    // currentlyDisplayedGames is primarily for the list view, not needed for routing game details directly.
+    let currentPage = 1; // Will be updated by hash or defaults to 1
+    
+    const ITEMS_PER_PAGE_STORAGE_KEY = 'userItemsPerPage';
+    const DEFAULT_ITEMS_PER_PAGE = 10;
+    let gamesPerPage = DEFAULT_ITEMS_PER_PAGE;
 
-    // --- Helper Functions ---
-    function slugify(text) {
+    const storedItemsPerPage = localStorage.getItem(ITEMS_PER_PAGE_STORAGE_KEY);
+    if (storedItemsPerPage && itemsPerPageSelect) { // Check if itemsPerPageSelect exists
+        const parsedValue = parseInt(storedItemsPerPage, 10);
+        const allowedValues = Array.from(itemsPerPageSelect.options).map(opt => parseInt(opt.value, 10));
+        if (allowedValues.includes(parsedValue)) {
+            gamesPerPage = parsedValue;
+        }
+    }
+    if (itemsPerPageSelect) {
+        itemsPerPageSelect.value = gamesPerPage.toString();
+    }
+
+    function slugify(text) { /* ... (slugify function remains the same) ... */
         if (!text) return '';
         return text.toString().toLowerCase()
-            .replace(/\s+/g, '-')           // Replace spaces with -
-            .replace(/[^\w-]+/g, '')       // Remove all non-word chars (alphanumeric, underscore, hyphen)
-            .replace(/--+/g, '-')         // Replace multiple - with single -
-            .replace(/^-+/, '')             // Trim - from start of text
-            .replace(/-+$/, '');            // Trim - from end of text
+            .replace(/\s+/g, '-')
+            .replace(/[^\w-]+/g, '')
+            .replace(/--+/g, '-')
+            .replace(/^-+/, '')
+            .replace(/-+$/, '');
     }
 
-    // Set initial loading message for game list
-    if (gameListContainer) {
+    if (gameListContainer) { /* ... (initial messages remain same) ... */
         gameListContainer.innerHTML = '<p class="loading-message" style="text-align:center; padding: 20px; color: var(--text-secondary-dark);">Loading games...</p>';
     }
+    if (gameListStats) {
+        gameListStats.innerHTML = 'Loading game statistics...';
+    }
+    if (paginationControlsContainer) {
+        paginationControlsContainer.innerHTML = '';
+    }
 
-    // Function to fetch and process game data
-    async function loadGameData() {
+
+    async function loadGameData() { /* ... (loadGameData remains same) ... */
         try {
             const response = await fetch('data/games.json');
             if (!response.ok) {
@@ -42,33 +65,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const jsonData = await response.json();
             allGamesData = jsonData.map((game, index) => {
-                // Create a deterministic ID
                 let baseSlug = game.name ? slugify(game.name) : 'unnamed-game';
-                // Ensure baseSlug is not empty after slugify (e.g. if name was only symbols)
-                if (!baseSlug) {
-                    baseSlug = 'unnamed-game';
-                }
-                // Append index to ensure global uniqueness and determinism
+                if (!baseSlug) { baseSlug = 'unnamed-game'; }
                 const deterministicId = `${baseSlug}-${index}`;
-                return {
-                    ...game,
-                    id: deterministicId
-                };
+                return { ...game, id: deterministicId };
             });
-            // currentlyDisplayedGames will be repopulated by filterAndPopulateGameList if #games is shown
-            handleRouteChange(); // Process initial URL hash now that data is loaded
+            handleRouteChange();
         } catch (error) {
             console.error("Could not load game data:", error);
-            if (gameListContainer) { // Error message for the list view
+            if (gameListContainer) {
                 gameListContainer.innerHTML = '<p style="text-align:center; padding: 20px; color: var(--text-secondary-dark);">Could not load game data. Please try again later.</p>';
             }
-            // If on a game detail page and data load fails, handleRouteChange will show an error there.
-            allGamesData = []; // Ensure it's empty on error
-            handleRouteChange(); // Still route, will handle error states appropriately
+            if (gameListStats) { gameListStats.innerHTML = 'Game statistics unavailable.'; }
+            if (paginationControlsContainer) paginationControlsContainer.innerHTML = '';
+            allGamesData = [];
+            handleRouteChange();
         }
     }
 
-    // Dark Mode Functionality
+    // ... (Dark mode functions, showSection, getSteamAppId, displayGameDetails, updateGameListStatistics remain the same) ...
     function updateDarkModeButtonText(isDark) {
         if (darkModeToggleButton) {
             darkModeToggleButton.innerHTML = isDark ? '☀️ <span class="button-text">Light Mode</span>' : '🌙 <span class="button-text">Dark Mode</span>';
@@ -98,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Section Display (Visual only) ---
     function showSection(sectionToShow) {
         if (!aboutSection || !gamesListSection || !gameDetailSection) return;
         [aboutSection, gamesListSection, gameDetailSection].forEach(section => {
@@ -107,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (sectionToShow) sectionToShow.classList.add('active');
     }
 
-    // --- Game Detail Display ---
     function getSteamAppId(steamLink) {
         if (!steamLink) return null;
         const match = steamLink.match(/\/app\/(\d+)\//);
@@ -141,26 +154,87 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Game List Population, Filtering, and Sorting ---
-    function filterAndPopulateGameList() {
-        if (!searchBar || !gameListContainer || !sortSelect) return;
-        const searchTerm = searchBar.value.toLowerCase();
-        
-        let filteredGames = allGamesData.filter(game => { // Use allGamesData as the source
-            return game.name && game.name.toLowerCase().includes(searchTerm);
-        });
 
+    function updateGameListStatistics(filteredCount, totalLibraryCount) {
+        if (!gameListStats) return;
+
+        if (totalLibraryCount === 0) {
+            gameListStats.innerHTML = `Total games in library: 0`;
+            return;
+        }
+        
+        let statsText = `Showing ${filteredCount} of ${totalLibraryCount} games.`;
+        if (filteredCount < totalLibraryCount && searchBar && searchBar.value && filteredCount !== allGamesData.length) {
+            statsText += ` (Filtered)`;
+        }
+        gameListStats.innerHTML = statsText;
+    }
+
+    function renderPaginationControls(totalFilteredGames) {
+        if (!paginationControlsContainer) return;
+        paginationControlsContainer.innerHTML = '';
+
+        const totalPages = Math.ceil(totalFilteredGames / gamesPerPage);
+
+        if (totalPages <= 1) {
+            return;
+        }
+
+        const prevButton = document.createElement('button');
+        prevButton.classList.add('pagination-button');
+        prevButton.textContent = '« Previous';
+        prevButton.disabled = currentPage === 1;
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                const newPage = currentPage - 1;
+                window.location.hash = `#games/page/${newPage}`; // Update hash
+                // handleRouteChange will then update currentPage and re-render
+            }
+        });
+        paginationControlsContainer.appendChild(prevButton);
+
+        const pageInfo = document.createElement('span');
+        pageInfo.classList.add('pagination-info');
+        const firstItem = Math.min((currentPage - 1) * gamesPerPage + 1, totalFilteredGames);
+        const lastItem = Math.min(currentPage * gamesPerPage, totalFilteredGames);
+        
+        if (totalFilteredGames > 0) {
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages} (Items ${firstItem}-${lastItem})`;
+        } else {
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        }
+        paginationControlsContainer.appendChild(pageInfo);
+
+        const nextButton = document.createElement('button');
+        nextButton.classList.add('pagination-button');
+        nextButton.textContent = 'Next »';
+        nextButton.disabled = currentPage === totalPages;
+        nextButton.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                const newPage = currentPage + 1;
+                window.location.hash = `#games/page/${newPage}`; // Update hash
+            }
+        });
+        paginationControlsContainer.appendChild(nextButton);
+    }
+
+
+    function filterAndPopulateGameList() {
+        if (!searchBar || !gameListContainer || !sortSelect || !gameListStats || !paginationControlsContainer || !itemsPerPageSelect) return;
+        
+        const searchTerm = searchBar.value.toLowerCase();
+        let filteredGames = allGamesData.filter(game => game.name && game.name.toLowerCase().includes(searchTerm));
         const sortBy = sortSelect.value;
         let sortedGames = [...filteredGames];
 
-        const parsePrice = (priceStr) => {
+        const parsePrice = (priceStr) => { /* ... */ 
             if (typeof priceStr !== 'string') return Infinity;
             if (priceStr.toLowerCase() === 'free') return 0;
             const num = parseFloat(priceStr.replace(/[^0-9$.]/g, '').replace('$', ''));
             return isNaN(num) ? Infinity : num;
         };
 
-        switch (sortBy) {
+        switch (sortBy) { /* ... */ 
             case 'price-asc':
                 sortedGames.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
                 break;
@@ -174,36 +248,72 @@ document.addEventListener('DOMContentLoaded', () => {
                 sortedGames.sort((a, b) => (b.name || "").localeCompare(a.name || ""));
                 break;
             case 'original':
-                // Default order is based on filteredGames which maintains relative order from allGamesData
                 break;
         }
         
-        // This variable isn't strictly needed if createGameListItem uses sortedGames directly.
-        // let currentlyDisplayedGames = sortedGames; // Used for clarity if needed elsewhere.
+        updateGameListStatistics(sortedGames.length, allGamesData.length);
 
-        gameListContainer.innerHTML = ''; // Clear previous list (including "Loading..." or error messages from loadGameData)
+        const totalFilteredGames = sortedGames.length;
+        // `currentPage` is now primarily set by `handleRouteChange` from the hash
+        const totalPages = Math.ceil(totalFilteredGames / gamesPerPage);
+
+        // Validate currentPage against totalPages (e.g. if filters reduce page count)
+        // This check is important if currentPage was set from hash before filters were applied
+        if (currentPage > totalPages && totalPages > 0) {
+            currentPage = totalPages;
+            // If current page became invalid, reflect this in URL if user isn't already on page 1
+            if (totalPages > 1) window.location.hash = `#games/page/${currentPage}`;
+            else window.location.hash = `#games`;
+            // Return or re-call might be needed if hash change triggers another route event immediately
+            // For simplicity, we'll let the current render proceed with the corrected currentPage.
+        } else if (totalPages === 0 && currentPage !== 1) {
+            currentPage = 1; // Reset if no results
+            // No need to change hash here as #games will be default
+        }
+
+
+        const startIndex = (currentPage - 1) * gamesPerPage;
+        const endIndex = startIndex + gamesPerPage;
+        const gamesToDisplayThisPage = sortedGames.slice(startIndex, endIndex);
+
+        gameListContainer.innerHTML = '';
 
         if (allGamesData.length === 0 && !gameListContainer.querySelector('p')) {
-            // This case means loadGameData succeeded but games.json was an empty array.
-            // If loadGameData failed, it would have already set an error message.
-            gameListContainer.innerHTML = '<p style="text-align:center; padding: 20px; color: var(--text-secondary-dark);">No games found in the data source.</p>';
+            if (!gameListContainer.textContent.includes("Could not load game data")) {
+                 gameListContainer.innerHTML = '<p style="text-align:center; padding: 20px; color: var(--text-secondary-dark);">No games found in the data source.</p>';
+            }
+             renderPaginationControls(0);
             return;
         }
 
-
-        if (sortedGames.length === 0) { // Check sortedGames for display
-            if (searchTerm) { // Check if searchTerm was actually set
+        if (totalFilteredGames === 0) {
+            if (searchTerm) {
                 gameListContainer.innerHTML = '<p style="text-align:center; padding: 20px; color: var(--text-secondary-dark);">No games found matching your search.</p>';
-            } else if (allGamesData.length > 0) { // Only show this if there *are* games but filter/sort yields none
-                gameListContainer.innerHTML = '<p style="text-align:center; padding: 20px; color: var(--text-secondary-dark);">No games to display with current sort options.</p>';
+            } else if (allGamesData.length > 0) {
+                gameListContainer.innerHTML = '<p style="text-align:center; padding: 20px; color: var(--text-secondary-dark);">No games to display.</p>';
             }
-            // If allGamesData.length is 0, the previous block or loadGameData's catch handles the message.
         } else {
-            sortedGames.forEach(game => createGameListItem(game));
+            gamesToDisplayThisPage.forEach(game => createGameListItem(game));
+        }
+        
+        renderPaginationControls(totalFilteredGames);
+        // Scroll to top of game list when page changes, if not already there by pagination click.
+        // This is more for when filters change the page content.
+        if (gamesListSection.classList.contains('active')) {
+            // Check if the top of the games list section is out of view
+            const rect = gamesListSection.getBoundingClientRect();
+            if (rect.top < 0 || rect.bottom > window.innerHeight) {
+                 // gamesListSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                 // Smoother scroll considering header:
+                 const headerOffset = document.querySelector('.header-bar')?.offsetHeight || 60;
+                 const elementPosition = gamesListSection.getBoundingClientRect().top + window.pageYOffset;
+                 const offsetPosition = elementPosition - headerOffset - 20; 
+                 window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            }
         }
     }
 
-    function createGameListItem(game) {
+    function createGameListItem(game) { /* ... (createGameListItem remains same) ... */
         if (!gameListContainer || !game) return;
         const gameItem = document.createElement('div');
         gameItem.classList.add('game-list-item');
@@ -226,74 +336,81 @@ document.addEventListener('DOMContentLoaded', () => {
         gameListContainer.appendChild(gameItem);
     }
 
-    // --- Routing ---
     function handleRouteChange() {
         const hash = window.location.hash;
 
-        if (!aboutSection || !gamesListSection || !gameDetailSection || !navAboutButton || !navGamesButton) {
-            console.warn("Routing: Essential DOM elements not found. Aborting route change.");
-            return;
-        }
+        if (!aboutSection || !gamesListSection || !gameDetailSection || !navAboutButton || !navGamesButton || !gameListStats || !paginationControlsContainer || !itemsPerPageSelect) return;
 
-        showSection(null); // Deactivate all sections visually
-
+        showSection(null);
         [navAboutButton, navGamesButton].forEach(btn => {
-            if (btn) {
-                btn.classList.remove('active');
-                btn.setAttribute('aria-pressed', 'false');
-            }
+            if (btn) { btn.classList.remove('active'); btn.setAttribute('aria-pressed', 'false'); }
         });
+        
+        gameListStats.style.display = 'none';
+        paginationControlsContainer.style.display = 'none';
 
         if (hash.startsWith('#game/')) {
+            // ... (game detail routing, unchanged)
             const gameId = decodeURIComponent(hash.substring('#game/'.length));
-            
-            // Always activate navGamesButton for game detail or game list views
             if (navGamesButton) {
                 navGamesButton.classList.add('active');
                 navGamesButton.setAttribute('aria-pressed', 'true');
             }
 
             if (allGamesData.length === 0) {
-                // This means loadGameData either failed or returned an empty list from JSON.
                 console.warn(`Cannot display game "${gameId}". Game data is empty or failed to load.`);
                 if (gameDetailContent) {
                      gameDetailContent.innerHTML = `<p style="text-align:center; padding:20px;">Could not load details for game "${gameId}". The game data might be unavailable. Please try returning to the <a href="#games">games list</a>.</p>`;
                 }
-                showSection(gameDetailSection); // Show the detail section with this error.
-                return; // Do not attempt to find game or change hash
+                showSection(gameDetailSection);
+                return;
             }
 
             const game = allGamesData.find(g => g.id === gameId);
             if (game) {
-                displayGameDetails(game); // This calls showSection(gameDetailSection)
+                displayGameDetails(game);
             } else {
-                // Game ID not found in the (populated) allGamesData.
-                // This means the URL has an ID for a game that doesn't exist in the current data.
                 console.warn(`Game with id "${gameId}" not found in the dataset. Redirecting to games list.`);
-                // Show a message in game detail before redirecting
                 if (gameDetailContent) {
                     gameDetailContent.innerHTML = `<p style="text-align:center; padding:20px;">The game you're looking for ("${gameId}") was not found. You will be redirected to the main games list.</p>`;
                 }
-                showSection(gameDetailSection); // Display the message
-                
-                // Redirect to games list after a short delay so user can see message
-                // This is optional, can redirect immediately by removing setTimeout
+                showSection(gameDetailSection);
                 setTimeout(() => {
-                    if (window.location.hash !== '#games') { // Avoid redundant hash change if already there
+                    // Go to base #games (page 1) if game not found.
+                    // Browser back will still work to previous paged URL if that's how user got here.
+                    if (window.location.hash !== '#games') {
                          window.location.hash = '#games';
-                    } else { // If hash is already #games, but we are in this error path, force a re-evaluation
-                        handleRouteChange(); // Re-process #games route to show list
+                    } else { // If hash somehow already #games, re-evaluate
+                        handleRouteChange();
                     }
-                }, 2000); // 2 second delay
+                }, 2000);
             }
-        } else if (hash === '#games') {
+        } else if (hash.startsWith('#games')) { // Matches #games and #games/page/N
+            let pageFromHash = 1;
+            const pageMatch = hash.match(/\/page\/(\d+)/);
+            if (pageMatch && pageMatch[1]) {
+                pageFromHash = parseInt(pageMatch[1], 10);
+                if (isNaN(pageFromHash) || pageFromHash < 1) {
+                    pageFromHash = 1; // Default to 1 if invalid page number
+                    // Correct the hash if it was invalid like #games/page/foo
+                    if (window.location.hash !== '#games') window.location.hash = '#games';
+                }
+            }
+            currentPage = pageFromHash;
+            
+            // gamesPerPage is already initialized from localStorage or default
+            if (itemsPerPageSelect) gamesPerPage = parseInt(itemsPerPageSelect.value, 10); // Sync with select if it changed
+
             showSection(gamesListSection);
-            filterAndPopulateGameList(); // Ensure list is populated/updated
+            gameListStats.style.display = 'block';
+            paginationControlsContainer.style.display = 'flex';
+            filterAndPopulateGameList(); // This will use the `currentPage` set from hash
             if (navGamesButton) {
                 navGamesButton.classList.add('active');
                 navGamesButton.setAttribute('aria-pressed', 'true');
             }
         } else if (hash === '#about' || hash === '') {
+            // ... (about routing)
             showSection(aboutSection);
             if (navAboutButton) {
                 navAboutButton.classList.add('active');
@@ -301,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (hash === '') window.location.hash = '#about';
         } else {
-            // Fallback for unknown hashes
+            // ... (unknown hash routing)
             console.warn(`Unknown hash: ${hash}. Redirecting to about.`);
             showSection(aboutSection);
             if (navAboutButton) {
@@ -312,12 +429,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Event Listeners Setup ---
     if (navAboutButton) {
-        navAboutButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.hash = '#about';
-        });
+        navAboutButton.addEventListener('click', (e) => { e.preventDefault(); window.location.hash = '#about'; });
     }
 
     if (navGamesButton) {
@@ -325,6 +438,12 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             if (searchBar) searchBar.value = '';
             if (sortSelect) sortSelect.value = 'original';
+            
+            gamesPerPage = DEFAULT_ITEMS_PER_PAGE; // Reset items per page logic
+            if (itemsPerPageSelect) itemsPerPageSelect.value = gamesPerPage.toString();
+            localStorage.setItem(ITEMS_PER_PAGE_STORAGE_KEY, gamesPerPage.toString());
+            
+            // Navigate to base #games, which implies page 1
             window.location.hash = '#games';
         });
     }
@@ -332,19 +451,50 @@ document.addEventListener('DOMContentLoaded', () => {
     if (backToListButton) {
         backToListButton.addEventListener('click', (e) => {
             e.preventDefault();
-            window.location.hash = '#games';
+            window.history.back(); // Use browser history to go back
         });
     }
     
+
     if (searchBar) {
-        searchBar.addEventListener('input', filterAndPopulateGameList);
+        searchBar.addEventListener('input', () => {
+            // When search changes, go to page 1 of new results
+            // Update hash to #games (or #games/page/1 if you prefer explicit page 1 always)
+            if (window.location.hash.startsWith("#games/page/")) {
+                window.location.hash = "#games"; // This will trigger route change to page 1
+            } else {
+                currentPage = 1; // If already on #games, just reset internal page
+                filterAndPopulateGameList();
+            }
+        });
     }
     
     if (sortSelect) {
-        sortSelect.addEventListener('change', filterAndPopulateGameList);
+        sortSelect.addEventListener('change', () => {
+            // When sort changes, go to page 1
+            if (window.location.hash.startsWith("#games/page/")) {
+                window.location.hash = "#games";
+            } else {
+                currentPage = 1;
+                filterAndPopulateGameList();
+            }
+        });
     }
 
-    // --- Initial Setup ---
-    loadGameData(); // Fetches data and then calls handleRouteChange
+    if (itemsPerPageSelect) {
+        itemsPerPageSelect.addEventListener('change', (event) => {
+            gamesPerPage = parseInt(event.target.value, 10);
+            localStorage.setItem(ITEMS_PER_PAGE_STORAGE_KEY, gamesPerPage.toString());
+            // When items per page changes, go to page 1
+            if (window.location.hash.startsWith("#games/page/")) {
+                window.location.hash = "#games";
+            } else {
+                currentPage = 1;
+                filterAndPopulateGameList();
+            }
+        });
+    }
+
+    loadGameData();
     window.addEventListener('hashchange', handleRouteChange);
 });

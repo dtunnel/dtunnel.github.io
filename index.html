@@ -28,6 +28,9 @@
             <section id="games-list-section" class="content-section">
                 <div class="controls-header">
                     <h2>All Games</h2>
+                    <div id="game-list-stats" class="game-list-statistics">
+                        <!-- Statistics will be populated by JavaScript -->
+                    </div>
                     <div class="filter-sort-controls">
                         <input type="text" id="search-bar" placeholder="Search games..." aria-label="Search games by name">
                         <div class="sort-controls">
@@ -40,13 +43,24 @@
                                 <option value="alpha-desc">Alphabetical: Z-A</option>
                             </select>
                         </div>
+                        <div class="items-per-page-controls">
+                            <label for="items-per-page-select">Show:</label>
+                            <select id="items-per-page-select" aria-label="Select number of games per page">
+                                <option value="10">10 per page</option>
+                                <option value="25">25 per page</option>
+                                <option value="50">50 per page</option>
+                                <option value="100">100 per page</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="game-list-container" id="game-list-container" role="list">
+                    <!-- Game items will be populated here -->
                 </div>
-            </section>
-
-            <section id="game-detail-section" class="content-section">
+                <div id="pagination-controls" class="pagination-container">
+                    <!-- Pagination buttons will be added here by JS -->
+                </div>
+            </section>            <section id="game-detail-section" class="content-section">
                 <button class="back-to-list-button" id="back-to-list" aria-label="Back to games list">
                     « Back to Games
                 </button>
